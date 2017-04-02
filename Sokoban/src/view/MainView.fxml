@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import view.SokoDisplayer?>
+
+<BorderPane prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MyView">
+   <left>
+      <VBox maxHeight="1.7976931348623157E308" prefHeight="343.0" prefWidth="100.0" style="-fx-background-color: #5E91FE;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="timeDecorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="96.0" text="Time:" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="27.0" />
+               </font></Label>
+            <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="00:00" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="27.0" />
+               </font></Label>
+            <Label fx:id="stepsDecorLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Steps:" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="27.0" />
+               </font></Label>
+            <Label fx:id="stepsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="27.0" />
+               </font></Label>
+            <Button id="record-sales" fx:id="resetButton" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onResetButton" stylesheets="@application.css" text="Reset" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
+            <Button id="record-sales" fx:id="loadButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLoadLevel" stylesheets="@application.css" text="Load" textFill="WHITE" />
+            <Button id="record-sales" fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveLevel" stylesheets="@application.css" text="Save" textFill="WHITE" />
+            <Button id="record-sales" fx:id="buttonMute" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#muteSong" stylesheets="@application.css" text="Mute" textFill="WHITE" />
+            <Button id="record-sales" fx:id="buttonExit" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExit" stylesheets="@application.css" text="Exit" textFill="WHITE" />
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox prefHeight="318.0" prefWidth="30.0" style="-fx-background-color: #5E91FE;" BorderPane.alignment="CENTER" />
+   </right>
+   <top>
+      <VBox prefHeight="78.0" prefWidth="394.0" style="-fx-background-color: #5E91FE;" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem fx:id="loadLevelButton" mnemonicParsing="false" onAction="#onLoadLevel" text="Load" />
+                        <MenuItem fx:id="saveLevelButton" mnemonicParsing="false" onAction="#onSaveLevel" text="Save" />
+                        <MenuItem fx:id="exitLevelButton" mnemonicParsing="false" onAction="#onExit" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Settings">
+                  <items>
+                    <MenuItem fx:id="settingsKeyboardButton" mnemonicParsing="false" text="Keyboard" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                        <MenuItem fx:id="helpServerButton" mnemonicParsing="false" onAction="#onServer" text="Server" />
+                    <MenuItem fx:id="helpAboutButton" mnemonicParsing="false" onAction="#onAbout" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label fx:id="headerMsgLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="537.0" text="Super Sokoban " textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="31.0" />
+               </font>
+               <padding>
+                  <Insets top="3.0" />
+               </padding></Label>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox prefHeight="34.0" prefWidth="750.0" style="-fx-background-color: #74ED74;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="footerMsgLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="382.0" text="SuperSoko" textAlignment="CENTER" textFill="WHITE">
+               <padding>
+                  <Insets top="3.0" />
+               </padding>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font></Label>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+	  <SokoDisplayer fx:id="sokoDisplayer" height="700.0" width="900.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

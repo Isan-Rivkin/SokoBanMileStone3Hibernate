@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_111" class="java.beans.XMLDecoder">
+ <object class="model.policy.InterpeterMove">
+  <void property="player_cmd">
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>move down</string>
+     <string>move down</string>
+    </void>
+    <void method="put">
+     <string>a</string>
+     <string>move left</string>
+    </void>
+    <void method="put">
+     <string>A</string>
+     <string>move left</string>
+    </void>
+    <void method="put">
+     <string>DOWN</string>
+     <string>move down</string>
+    </void>
+    <void method="put">
+     <string>move left</string>
+     <string>move left</string>
+    </void>
+    <void method="put">
+     <string>D</string>
+     <string>move right</string>
+    </void>
+    <void method="put">
+     <string>d</string>
+     <string>move right</string>
+    </void>
+    <void method="put">
+     <string>LEFT</string>
+     <string>move left</string>
+    </void>
+    <void method="put">
+     <string>move right</string>
+     <string>move right</string>
+    </void>
+    <void method="put">
+     <string>S</string>
+     <string>move down</string>
+    </void>
+    <void method="put">
+     <string>s</string>
+     <string>move down</string>
+    </void>
+    <void method="put">
+     <string>move up</string>
+     <string>move up</string>
+    </void>
+    <void method="put">
+     <string>W</string>
+     <string>move up</string>
+    </void>
+    <void method="put">
+     <string>w</string>
+     <string>move up</string>
+    </void>
+    <void method="put">
+     <string>RIGHT</string>
+     <string>move right</string>
+    </void>
+    <void method="put">
+     <string>UP</string>
+     <string>move up</string>
+    </void>
+   </object>
+  </void>
+  <void property="player_index">
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>move down</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>A</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>a</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>DOWN</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>move left</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>LEFT</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>D</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>d</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>move right</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>S</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>s</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>move up</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>W</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>w</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>RIGHT</string>
+     <string>0</string>
+    </void>
+    <void method="put">
+     <string>UP</string>
+     <string>0</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

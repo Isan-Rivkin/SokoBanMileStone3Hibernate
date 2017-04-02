@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_111" class="java.beans.XMLDecoder">
+ <object class="common_data.level.Level" id="Level0">
+  <void property="boxes">
+   <void method="add">
+    <object class="common_data.item.Box" id="Box0">
+     <void property="position">
+      <object class="common_data.item.Position2D">
+       <void property="x">
+        <int>2</int>
+       </void>
+       <void property="y">
+        <int>2</int>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="height">
+   <int>5</int>
+  </void>
+  <void property="map">
+   <array class="[Lcommon_data.item.Item;" length="5">
+    <void index="0">
+     <array class="common_data.item.Item" length="7">
+      <void index="0">
+       <object class="common_data.item.Wall" id="Wall0">
+        <void property="position">
+         <object class="common_data.item.Position2D"/>
+        </void>
+       </object>
+      </void>
+      <void index="1">
+       <object class="common_data.item.Wall" id="Wall1">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="y">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="2">
+       <object class="common_data.item.Wall" id="Wall2">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="y">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="3">
+       <object class="common_data.item.Wall" id="Wall3">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="y">
+           <int>3</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="4">
+       <object class="common_data.item.Wall" id="Wall4">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="y">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="5">
+       <object class="common_data.item.Wall" id="Wall5">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="y">
+           <int>5</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="6">
+       <object class="common_data.item.Wall" id="Wall6">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="y">
+           <int>6</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+    <void index="1">
+     <array class="common_data.item.Item" length="7">
+      <void index="0">
+       <object class="common_data.item.Wall" id="Wall7">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="1">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+          <void property="y">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="2">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+          <void property="y">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="3">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+          <void property="y">
+           <int>3</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="4">
+       <object class="common_data.item.Target" id="Target0">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+          <void property="y">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="5">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+          <void property="y">
+           <int>5</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="6">
+       <object class="common_data.item.Wall" id="Wall8">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>1</int>
+          </void>
+          <void property="y">
+           <int>6</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+    <void index="2">
+     <array class="common_data.item.Item" length="7">
+      <void index="0">
+       <object class="common_data.item.Wall" id="Wall9">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="1">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+          <void property="y">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="2">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+          <void property="y">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="3">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+          <void property="y">
+           <int>3</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="4">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+          <void property="y">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="5">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+          <void property="y">
+           <int>5</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="6">
+       <object class="common_data.item.Wall" id="Wall10">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>2</int>
+          </void>
+          <void property="y">
+           <int>6</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+    <void index="3">
+     <array class="common_data.item.Item" length="7">
+      <void index="0">
+       <object class="common_data.item.Wall" id="Wall11">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="1">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="2">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="3">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>3</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="4">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="5">
+       <object class="common_data.item.Floor">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>5</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="6">
+       <object class="common_data.item.Wall" id="Wall12">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>6</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+    <void index="4">
+     <array class="common_data.item.Item" length="7">
+      <void index="0">
+       <object class="common_data.item.Wall" id="Wall13">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="1">
+       <object class="common_data.item.Wall" id="Wall14">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+          <void property="y">
+           <int>1</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="2">
+       <object class="common_data.item.Wall" id="Wall15">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+          <void property="y">
+           <int>2</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="3">
+       <object class="common_data.item.Wall" id="Wall16">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+          <void property="y">
+           <int>3</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="4">
+       <object class="common_data.item.Wall" id="Wall17">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+          <void property="y">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="5">
+       <object class="common_data.item.Wall" id="Wall18">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+          <void property="y">
+           <int>5</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void index="6">
+       <object class="common_data.item.Wall" id="Wall19">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>4</int>
+          </void>
+          <void property="y">
+           <int>6</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+   </array>
+  </void>
+  <void property="movables">
+   <array class="[Lcommon_data.item.Movable;" length="5">
+    <void index="0">
+     <array class="common_data.item.Movable" length="7"/>
+    </void>
+    <void index="1">
+     <array class="common_data.item.Movable" length="7"/>
+    </void>
+    <void index="2">
+     <array class="common_data.item.Movable" length="7">
+      <void index="2">
+       <object idref="Box0"/>
+      </void>
+     </array>
+    </void>
+    <void index="3">
+     <array class="common_data.item.Movable" length="7">
+      <void index="4">
+       <object class="common_data.item.Player" id="Player0">
+        <void property="position">
+         <object class="common_data.item.Position2D">
+          <void property="x">
+           <int>3</int>
+          </void>
+          <void property="y">
+           <int>4</int>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+    <void index="4">
+     <array class="common_data.item.Movable" length="7"/>
+    </void>
+   </array>
+  </void>
+  <void property="players">
+   <void method="add">
+    <object idref="Player0"/>
+   </void>
+  </void>
+  <void property="targets">
+   <void method="add">
+    <object idref="Target0"/>
+   </void>
+  </void>
+  <void property="walls">
+   <void method="add">
+    <object idref="Wall0"/>
+   </void>
+   <void method="add">
+    <object idref="Wall1"/>
+   </void>
+   <void method="add">
+    <object idref="Wall2"/>
+   </void>
+   <void method="add">
+    <object idref="Wall3"/>
+   </void>
+   <void method="add">
+    <object idref="Wall4"/>
+   </void>
+   <void method="add">
+    <object idref="Wall5"/>
+   </void>
+   <void method="add">
+    <object idref="Wall6"/>
+   </void>
+   <void method="add">
+    <object idref="Wall7"/>
+   </void>
+   <void method="add">
+    <object idref="Wall8"/>
+   </void>
+   <void method="add">
+    <object idref="Wall9"/>
+   </void>
+   <void method="add">
+    <object idref="Wall10"/>
+   </void>
+   <void method="add">
+    <object idref="Wall11"/>
+   </void>
+   <void method="add">
+    <object idref="Wall12"/>
+   </void>
+   <void method="add">
+    <object idref="Wall13"/>
+   </void>
+   <void method="add">
+    <object idref="Wall14"/>
+   </void>
+   <void method="add">
+    <object idref="Wall15"/>
+   </void>
+   <void method="add">
+    <object idref="Wall16"/>
+   </void>
+   <void method="add">
+    <object idref="Wall17"/>
+   </void>
+   <void method="add">
+    <object idref="Wall18"/>
+   </void>
+   <void method="add">
+    <object idref="Wall19"/>
+   </void>
+  </void>
+  <void property="width">
+   <int>7</int>
+  </void>
+ </object>
+</java>
