@@ -17,7 +17,9 @@
 			<!-- Echo all executed SQL to stdout -->
 			<property name="show_sql">true</property>
 
-			<mapping class="model.database.Student"></mapping>
+			<mapping class="model.database.PlayerP"></mapping>
+			<mapping class="model.database.LevelP"></mapping>
+			<mapping class="model.database.HighScoreP"></mapping>
 	</session-factory>
 </hibernate-configuration> 
  

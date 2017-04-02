@@ -22,11 +22,9 @@ public class LevelP
 	private int levelMinSteps;
 	
 	public LevelP(){}
-	public LevelP(int levelID, String levelName)
+	public LevelP(String levelName)
 	{
-		this.levelID=levelID;
 		this.levelName=levelName;
-		levelName="";
 		serializedLevel="";
 		levelMinSteps=0;
 	}
