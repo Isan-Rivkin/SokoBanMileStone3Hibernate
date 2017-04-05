@@ -7,29 +7,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "Players")
 @Table(name="Players", catalog="SokobanDB", schema="DBO")
-public class PlayerP
+public class PlayerP implements POJO
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int playerID;
-	@Column(name="playerName")
 	private String playerName;
 	
 	public PlayerP(){}
-	public int getPlayerID() 
-	{
-		return playerID;
-	}
 	@Override
 	public String toString() 
 	{
-		return "PlayerP [playerID=" + playerID + ", playerName=" + playerName + "]";
+		return "PlayerP [playerName=" + playerName + "]";
 	}
-	public void setPlayerID(int playerID)
+	public PlayerP(String playerName)
 	{
-		this.playerID = playerID;
+		this.playerName=playerName;
 	}
 	public String getPlayerName()
 	{
@@ -39,10 +32,14 @@ public class PlayerP
 	{
 		this.playerName = playerName;
 	}
-	public PlayerP(String playerName)
+	@Override
+	
+	public String getName()
 	{
-		this.playerName=playerName;
+	
+		return this.getPlayerName();
 	}
+	
 	
 }
 

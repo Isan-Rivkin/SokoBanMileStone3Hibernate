@@ -1,11 +1,10 @@
 <hibernate-configuration>
 	<session-factory>
-
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">
 			com.microsoft.sqlserver.jdbc.SQLServerDriver
 		</property>
-			<property name="connection.url">jdbc:sqlserver://localhost:1433;database=StudentsDB;integratedSecurity=true;
+			<property name="connection.url">jdbc:sqlserver://localhost:1433;database=SokobanDB;integratedSecurity=true;
 			</property>
 
 			<!-- JDBC connection pool (use the built-in) -->

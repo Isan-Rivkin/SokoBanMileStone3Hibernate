@@ -45,7 +45,7 @@ public class DBHighScoresManager implements DBManager
 
 
 	}
-	public void saveLevel(LevelP level)
+	public void saveLevel(Object level)
 	{
 		Session session=null;
 		Transaction tx=null;

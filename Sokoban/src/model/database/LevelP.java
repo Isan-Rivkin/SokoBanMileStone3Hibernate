@@ -7,54 +7,72 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity (name = "Levels")
 @Table(name="Levels", catalog="SokobanDB", schema="DBO")
-public class LevelP 
+public class LevelP implements POJO 
 {	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int levelID;
-	@Column(name="levelName")
 	private String levelName;
+	
 	@Column(name="serializedLevel")
 	private String serializedLevel;
+	
 	@Column(name="levelMinSteps")
-	private int levelMinSteps;
+	private Integer levelMinSteps;
+	
+	@Column(name="levelPath")
+	private String levelPath;
 	
 	public LevelP(){}
-	public LevelP(String levelName)
+	public LevelP(String levelName, String levelPath)
 	{
 		this.levelName=levelName;
 		serializedLevel="";
-		levelMinSteps=0;
+		levelMinSteps=null;
+		this.levelPath=levelPath;
+	}
+	
+	@Override
+	public String getName() 
+	{
+		return this.getLevelName();
+	}
+	public String getLevelPath()
+	{
+		return levelPath;
+	}
+	public void setLevelPath(String levelPath) 
+	{
+		this.levelPath = levelPath;
 	}
 	@Override
-	public String toString() {
-		return "LevelP [levelID=" + levelID + ", levelName=" + levelName + ", serializedLevel=" + serializedLevel
-				+ ", levelMinSteps=" + levelMinSteps + "]";
+	public String toString() 
+	{
+		return "LevelP [levelName=" + levelName + ", serializedLevel=" + serializedLevel + ", levelMinSteps="
+				+ levelMinSteps + ", levelPath=" + levelPath + "]";
 	}
-	public int getLevelID() {
-		return levelID;
-	}
-	public void setLevelID(int levelID) {
-		this.levelID = levelID;
-	}
-	public String getLevelName() {
+	public String getLevelName() 
+	{
 		return levelName;
 	}
-	public void setLevelName(String levelName) {
+	public void setLevelName(String levelName)
+	{
 		this.levelName = levelName;
 	}
-	public String getSerializedLevel() {
+	public String getSerializedLevel() 
+	{
 		return serializedLevel;
 	}
-	public void setSerializedLevel(String serializedLevel) {
+	public void setSerializedLevel(String serializedLevel)
+	{
 		this.serializedLevel = serializedLevel;
 	}
-	public int getLevelMinSteps() {
+	public Integer getLevelMinSteps() 
+	{
 		return levelMinSteps;
 	}
-	public void setLevelMinSteps(int levelMinSteps) {
+	public void setLevelMinSteps(Integer levelMinSteps)
+	{
 		this.levelMinSteps = levelMinSteps;
 	}
 }

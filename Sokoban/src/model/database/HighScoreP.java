@@ -10,87 +10,81 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "HighScores")
 @Table(name="HighScores", catalog="SokobanDB", schema="DBO")
-public class HighScoreP 
+public class HighScoreP implements POJO
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int highScoreID;
-	@JoinColumn(name="playerID")
-	private int playerID;
-    @JoinColumn(name="levelID")
-	private int levelID;
+	private Integer highScoreID;
+
+	@JoinColumn(name="playerName")
+	private String playerName;
+	
+	@JoinColumn(name="levelName")
+	private String levelName;
+	
 	@Column(name="playerSteps")
-	private int playerSteps;
+	private Integer playerSteps;
+	
 	@Column(name="playerTime")
-	private long playerTime;
+	private Long playerTime;
 	
 	public HighScoreP(){}
-	public HighScoreP(int levelID, int playerID,int playerSteps,long playerTime) 
+	public HighScoreP(String playerName, String levelName ,Integer playerSteps,Long playerTime) 
 	{
-		this.levelID=levelID;
-		this.playerID=playerID;
+		this.levelName=levelName;
+		this.playerName=playerName;
 		this.playerSteps=playerSteps;
 		this.playerTime=playerTime;
 	}
-
-	public int getHsID() 
+	@Override
+	public String getName() 
+	{
+		return ""+this.getHighScoreID();
+	}
+	public Integer getHighScoreID() 
 	{
 		return highScoreID;
 	}
-
-	public void setHsID(int hsID) 
+	public void setHighScoreID(Integer highScoreID) 
 	{
-		this.highScoreID = hsID;
+		this.highScoreID = highScoreID;
 	}
-
-	public int getPlayerID() 
+	public String getPlayerName() 
 	{
-		return playerID;
+		return playerName;
 	}
-
-	public void setPlayerID(int playerID) 
+	public void setPlayerName(String playerName) 
 	{
-		this.playerID = playerID;
+		this.playerName = playerName;
 	}
-
-	public int getLevelID() 
+	public String getLevelName() 
 	{
-		return levelID;
+		return levelName;
 	}
-
-	public void setLevelID(int levelID) 
+	public void setLevelName(String levelName) 
 	{
-		this.levelID = levelID;
+		this.levelName = levelName;
 	}
-
-	public int getMinSteps() 
+	public Integer getPlayerSteps() 
 	{
 		return playerSteps;
 	}
-
-	public void setMinSteps(int minSteps) 
+	public void setPlayerSteps(Integer playerSteps) 
 	{
-		this.playerSteps = minSteps;
+		this.playerSteps = playerSteps;
 	}
-
-	public long getTime() 
+	public Long getPlayerTime() 
 	{
 		return playerTime;
 	}
-
-	public void setTime(long time) 
+	public void setPlayerTime(Long playerTime) 
 	{
-		this.playerTime = time;
-	}
-	@Override
-	public String toString() {
-		return "HighScoreP [highScoreID=" + highScoreID + ", playerID=" + playerID + ", levelID=" + levelID
-				+ ", playerSteps=" + playerSteps + ", playerTime=" + playerTime + "]";
+		this.playerTime = playerTime;
 	}
 
-	
+
 	
 	
 }
