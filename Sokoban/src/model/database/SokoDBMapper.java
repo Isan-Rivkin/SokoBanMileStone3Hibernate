@@ -35,8 +35,9 @@ public class SokoDBMapper implements IDBMapper
 //		Query q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE (:levelName IS NULL OR hs.levleName = :levelName) AND "
 //				+ "(:playerName IS NULL OR hs.playerName = :playerName) ORDER BY hs."
 //				+(query.getOrderBy()));
-		Query q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE "
-				+ "(:playerName IS NULL OR hs.playerName = :playerName)");
+		Query q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE "+
+				 "(:levelName IS NULL OR hs.levleName = :levelName) AND "
+				 		+ "(:playerName IS NULL OR hs.playerName = :playerName)");
 		//TODO::in create table allow nulls in fields otherwise cannot traverse
 		q.setMaxResults(query.getMaxResults());
 	//	q.setParameter("levelName", query.getLevelName());
