@@ -29,19 +29,33 @@ public class SokoDBMapper implements IDBMapper
 	{
 		Session session=factory.openSession(); 
 		HighScoreP[] res = null;
-//		Query q = session.createQuery("From model.database.HighScoreP hs WHERE (:levelName IS NULL OR hs.levleName = :levelName) AND "
-//				+ "(:playerName IS NULL OR hs.playerName = :playerName) ORDER BY hs."
-//				+(query.getOrderBy()));
-//		Query q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE (:levelName IS NULL OR hs.levleName = :levelName) AND "
-//				+ "(:playerName IS NULL OR hs.playerName = :playerName) ORDER BY hs."
-//				+(query.getOrderBy()));
-		Query q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE "+
-				 "(:levelName IS NULL OR hs.levleName = :levelName) AND "
-				 		+ "(:playerName IS NULL OR hs.playerName = :playerName)");
-		//TODO::in create table allow nulls in fields otherwise cannot traverse
+		Query q=null;
+		if(query.getPlayerName() == null && query.getLevelName() != null)
+		{
+			System.out.println("I enter here level name not null = " + query.getLevelName());
+
+			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE hs.levelName = :levelName "
+			+ "ORDER BY hs."
+			+(query.getOrderBy()));
+			q.setParameter("levelName", query.getLevelName());
+		}
+		else if(query.getLevelName() == null && query.getPlayerName() != null)
+		{
+			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE "
+			+ "hs.playerName =:playerName ORDER BY hs."
+			+(query.getOrderBy()));
+			q.setParameter("playerName", query.getPlayerName());
+		}
+		else
+		{
+			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE hs.levleName =:levelName AND "
+			+ "hs.playerName =:playerName ORDER BY hs."
+			+(query.getOrderBy()));
+			 q.setParameter("playerName", query.getPlayerName());
+			 q.setParameter("levelName", query.getLevelName());
+		}
+		
 		q.setMaxResults(query.getMaxResults());
-	//	q.setParameter("levelName", query.getLevelName());
-		q.setParameter("playerName", query.getPlayerName());
 		List list  = q.list();
 		res = new HighScoreP[list.size()];
 		res = (HighScoreP[]) list.toArray(res);
@@ -49,27 +63,32 @@ public class SokoDBMapper implements IDBMapper
 	}
 
 	@Override
-	public List<LevelP> getAllLevels() {
+	public List<LevelP> getAllLevels()
+	{
 		return (List<LevelP>) this.getAllrows(LEVELS_TABLE);
 	}
 
 	@Override
-	public List<PlayerP> getAllPlayers() {
+	public List<PlayerP> getAllPlayers()
+	{
 		return (List<PlayerP>) this.getAllrows(PLAYERS_TABLE);
 	}
 
 	@Override
-	public List<HighScoreP> getAllHighScores() {
+	public List<HighScoreP> getAllHighScores()
+	{
 		return (List<HighScoreP>) this.getAllrows(HIGHSCORE_TABLE);
 	}
 
 	@Override
-	public boolean savePOJO(POJO pojo) {
+	public boolean savePOJO(POJO pojo)
+	{
 		Session session=null;
 		Transaction tx=null;
 		boolean worked = true;
 		try
 		{
+			
 			session=factory.openSession();
 			tx=session.beginTransaction();
 			session.save(pojo);
@@ -99,12 +118,27 @@ public class SokoDBMapper implements IDBMapper
 		Transaction tx = null;
 		boolean worked = true;
 		Session session = null;
-		//TODO::
+		if (!(pojo instanceof HighScoreP))
+		{
+			worked = false;
+			return worked;
+		}
 		try {
 		session = factory.openSession();
 		tx = session.beginTransaction();
-		session.delete(pojo);
-		tx.commit();
+		System.out.println("TRYING");
+	
+		System.out.println("EXIST ? "+	isEntityExist(pojo));
+//		if (isEntityExist(pojo))
+//		{
+//		System.out.println("EXISTING");
+//		session.delete(pojo);
+//		tx.commit();
+//		}
+//		else 
+//		{
+//			worked = false;
+//		}
 		}
 		catch(HibernateException he)
 		{
@@ -129,30 +163,42 @@ public class SokoDBMapper implements IDBMapper
 	@Override
 	public boolean isEntityExist(POJO pojo) 
 	{
-		//TODO::
-//		Session session=null;
-//		Transaction tx=null;
-//		try
-//		{
-//			session=factory.openSession();
-//			tx=session.beginTransaction();
-//			session.get();
-//		}
-//		catch(HibernateException e)
-//		{
-//			if(tx!= null)
-//			{
-//				tx.rollback();
-//			}
-//		}
-//		finally
-//		{
-//			if(session != null)
-//			{
-//				session.close();
-//			}
-//		}
-		return false;
+	
+		boolean flag=false;
+		Session session=null;
+		Transaction tx=null;
+		try
+		{
+			session=factory.openSession();
+			tx=session.beginTransaction();
+			POJO pp = null;
+			if(pojo instanceof HighScoreP)
+			{
+				return false;
+			}
+				pp= session.get(pojo.getClass(),pojo.getName());
+
+			if(pp != null)
+			{
+				flag=true;
+			}
+		}
+		catch(HibernateException e)
+		{
+			if(tx!= null)
+			{
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(session != null)
+			{
+				session.close();
+			}
+		}
+		return flag;
 	}
 
 	@Override

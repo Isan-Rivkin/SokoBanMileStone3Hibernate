@@ -25,17 +25,37 @@ public class TempMain {
 //
 //		mapper.savePOJO(new LevelP("testlevel1", "testPath"));
 //		mapper.savePOJO(new HighScoreP("Haimke shlomi", "testlevel1", new Integer(51), new Long(343)));
-		IQuery query= new HighScoreQuery();
-		query.setPlayerName("Haimke shlomi");
-		query.setMaxResults(50);
-		HighScoreP[] list= mapper.searchHighScore(query);
-		System.out.println(list.length);
-		for(int i=0; i<list.length;++i)
-		{
-			System.out.println(list[i].toString());
-		}
-		
-		
+//         mapper.savePOJO(new LevelP("testlevel2", "testpath//2"));
+//         mapper.savePOJO(new PlayerP("testPlayer 2"));
+//         mapper.savePOJO(new HighScoreP("testPlayer 2", "testlevel2",new Integer(666), new Long(6520)));
+//         mapper.savePOJO(new HighScoreP("testPlayer 2", "testlevel2",new Integer(1), new Long(1000)));
+//         mapper.savePOJO(new HighScoreP("testPlayer 2", "testlevel2",new Integer(2), new Long(2000)));
+//         mapper.savePOJO(new HighScoreP("testPlayer 2", "testlevel2",new Integer(3), new Long(3000)));
+////       
+//		mapper.savePOJO(new LevelP("testlevel3", "path path"));
+//        mapper.savePOJO(new PlayerP("testplayer3"));
+//		mapper.savePOJO(new HighScoreP("testplayer3", "testlevel3",new Integer(3), new Long(9999)));
+		//boolean urMAMA=mapper.deletePOJO(new HighScoreP("testPlayer 2", "testlevel2",new Integer(3), new Long(9999)));
+//		boolean urMAMA=mapper.isEntityExist(new HighScoreP("testplayer3", "testlevel3",new Integer(3), new Long(9999)));
+//         if(urMAMA)
+//        	 System.out.println("UR MAMA");
+//         else
+//        	 System.err.println("!UR MAMA");
+//		
+		//***********
+//		IQuery query= new HighScoreQuery();
+//		//query.setPlayerName("testPlayer 2");
+//		query.setLevelName("testlevel2");
+//		query.initOrderBySteps();
+//		query.setMaxResults(50);
+//		HighScoreP[] list= mapper.searchHighScore(query);
+//		System.out.println(list.length);
+//		for(int i=0; i<list.length;++i)
+//		{
+//			System.out.println(list[i].getPlayerSteps());
+//		}
+//		
+//		
 		
 	}
 
