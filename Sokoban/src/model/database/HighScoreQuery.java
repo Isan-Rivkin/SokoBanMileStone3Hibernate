@@ -81,8 +81,14 @@ public class HighScoreQuery implements IQuery
 		this.desc=desc;
 	}
 	@Override
-	public void initLexiPlayerName() {
+	public void initLexiPlayerName() 
+	{
 		orderBy="order by hs.playerName asc";
+	}
+	@Override
+	public void initLexiLevelName() 
+	{
+		orderBy="order by hs.levelName asc";
 	}
 
 }

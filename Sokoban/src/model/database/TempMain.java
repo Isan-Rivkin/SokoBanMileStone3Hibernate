@@ -2,6 +2,9 @@ package model.database;
 
 import java.util.List;
 
+import model.HSDataManager;
+import model.IDataManager;
+
 public class TempMain {
 
 	
@@ -12,7 +15,7 @@ public class TempMain {
 		//	manager.saveLevel(new LevelP( "FinalObjTestLevel"));
 	 //  manager.saveHighscore(new HighScoreP(666, 16, 11, 165245));
 		//manager.saveToDB(new Student(199, "obj name", "obh l name", 999));
-		SokoDBMapper mapper= new SokoDBMapper();
+	//	SokoDBMapper mapper= new SokoDBMapper();
 	//	mapper.savePOJO(new PlayerP("Haimke shlomi"));
 		//mapper.savePOJO(new PlayerP("Daniel Yohpaz"));
 	//	mapper.savePOJO(new PlayerP("Daniel Cohen"));
@@ -56,6 +59,17 @@ public class TempMain {
 //		}
 //		
 //		
+		SokoDBMapper mapper = new SokoDBMapper();
+		IDataManager data_manager = new HSDataManager(mapper);
+		data_manager.signUpHighScore("shlomi", "testlevel1", new Integer(1), new Long(1666666));
+		data_manager.signUpHighScore("shlomi", "testlevel1", new Integer(166), new Long(16));
+		//data_manager.deleteQuery(new PlayerP(), "shlomi");
+		List<HighScoreP> list = data_manager.search("p", "shlomi", "time");
+        for(HighScoreP hs : list)
+		{
+			System.out.println("TIME : " + hs.getPlayerTime());
+		}
+		
 		
 	}
 

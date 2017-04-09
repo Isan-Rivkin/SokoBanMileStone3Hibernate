@@ -6,20 +6,24 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import org.omg.CORBA.INTERNAL;
-
 import common_data.level.Level;
 import model.data.levelLoaders.FactoryLevelLoader;
 import model.data.levelLoaders.ILevelLoader;
+import model.database.HighScoreP;
+import model.database.IDBMapper;
+import model.database.LevelP;
+import model.database.POJO;
+import model.database.SokoDBMapper;
 import model.policy.CalculateMove;
 import model.policy.Imove;
 import model.policy.Policy;
 import sokoban_utils.SokoUtil;
 
-public class MyModel extends Observable implements FModel,Observer {
+public class MyModel extends Observable implements FModel,Observer
+{
 		
 	private ArrayList<Level> levels; 
 	private Level currentLevel;//,originalLevel;
@@ -32,9 +36,12 @@ public class MyModel extends Observable implements FModel,Observer {
 	private Imove movePush;
 	private String currentLevelPath;
 	private int winningSteps;
+	private IDataManager hs_manager;
+	private IDBMapper mapper;
 
 	
-	public MyModel(Policy policy) {
+	public MyModel(Policy policy) 
+	{
 	//indicator for showing winning msg once.
 	this.winningSteps=(int)Integer.MAX_VALUE;
 	this.currentLevelPath="";
@@ -48,7 +55,8 @@ public class MyModel extends Observable implements FModel,Observer {
 	this.policy=policy;
     this.movePush=new CalculateMove(this.policy);
 	this.fac_loader=new FactoryLevelLoader();
-	
+	this.mapper = new SokoDBMapper();
+	this.hs_manager=new HSDataManager(mapper);
 	}
 
 	@Override
@@ -167,12 +175,14 @@ public class MyModel extends Observable implements FModel,Observer {
 	}
 
 	@Override
-	public Policy getPolicy() {
+	public Policy getPolicy()
+	{
 		return this.policy;
 	}
 
 	@Override
-	public String getCurrentLevelPath() {
+	public String getCurrentLevelPath() 
+	{
 		if(currentLevelPath!= null && currentLevelPath.length()>1)
 		{
 			return this.currentLevelPath;
@@ -184,6 +194,56 @@ public class MyModel extends Observable implements FModel,Observer {
 			notifyObservers(params);
 		}	
 		return null;
+	}
+
+	@Override
+	public List<HighScoreP> search(String classify, String name, String orderType)
+	{
+		
+		if(classify.equals("l"))
+		{
+			/**
+			 * need to decide what to do since there are 2 options
+			 * user insert query and click search OR user click HIGHSCORE button
+			 * my offer : to extract level name from path in a seperate command + attach that command to the HIhGHSCORE buTTON
+			 * that method will use this current method with extracted name 
+			 */
+		} 
+		return null;
+		
+		
+	}
+
+	@Override
+	public void signUpHighScore(String pName, String lName, Integer currentSteps, Long currentTime)
+	{
+		hs_manager.signUpHighScore(pName, lName, currentSteps, currentTime);
+		//updateObserver("??");
+	}
+
+	@Override
+	public boolean deleteRow(POJO idPOJO, String... delete) 
+	{
+		boolean succeed=  hs_manager.deleteQuery(idPOJO, delete);
+	//	updateObserver("display"); ++++ msgheader alert
+		return succeed;
+	}
+
+	@Override
+	public void save(POJO line) 
+	{
+		hs_manager.save(line);
+	}
+	
+	public void updateObserver(String ...strings)
+	{
+		List<String> params = new LinkedList<String>();
+		for(String s : strings)
+		{
+			params.add(s);
+		}
+		setChanged();
+		notifyObservers(params);
 	}
 
 }

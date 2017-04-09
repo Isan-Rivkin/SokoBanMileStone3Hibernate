@@ -10,6 +10,7 @@ public interface IQuery {
 	public void initOrderBySteps();
 	public void initOrderByTime();
 	public void initLexiPlayerName();
+	public void initLexiLevelName();
 	public int getMaxResults();
 	public boolean isDESC();
 	public void setDESC(boolean desc);

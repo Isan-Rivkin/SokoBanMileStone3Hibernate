@@ -25,7 +25,7 @@ public class SokoDBMapper implements IDBMapper
 	}
 	
 	@Override
-	public HighScoreP[] searchHighScore(IQuery query)
+	public List<HighScoreP> searchHighScore(IQuery query)
 	{
 		Session session=factory.openSession(); 
 		HighScoreP[] res = null;
@@ -56,10 +56,8 @@ public class SokoDBMapper implements IDBMapper
 		}
 		
 		q.setMaxResults(query.getMaxResults());
-		List list  = q.list();
-		res = new HighScoreP[list.size()];
-		res = (HighScoreP[]) list.toArray(res);
-		return res;
+		List<HighScoreP> list  = (List<HighScoreP>)q.list();
+		return list;
 	}
 
 	@Override
@@ -114,31 +112,29 @@ public class SokoDBMapper implements IDBMapper
 
 	
 	@Override
-	public boolean deletePOJO(POJO pojo) {
+	public boolean deletePOJO(POJO pojo) 
+	{
 		Transaction tx = null;
 		boolean worked = true;
 		Session session = null;
-		if (!(pojo instanceof HighScoreP))
+		worked =false ;
+		if(isEntityExist(pojo) != null)
 		{
-			worked = false;
-			return worked;
+			worked = true;
 		}
 		try {
-		session = factory.openSession();
-		tx = session.beginTransaction();
-		System.out.println("TRYING");
-	
-		System.out.println("EXIST ? "+	isEntityExist(pojo));
-//		if (isEntityExist(pojo))
-//		{
-//		System.out.println("EXISTING");
-//		session.delete(pojo);
-//		tx.commit();
-//		}
-//		else 
-//		{
-//			worked = false;
-//		}
+			session = factory.openSession();
+			tx = session.beginTransaction();
+			if (worked || pojo instanceof HighScoreP)
+			{
+			session.delete(pojo);
+			tx.commit();
+			worked=true;
+			}
+			else 
+			{
+				worked = false;
+			}
 		}
 		catch(HibernateException he)
 		{
@@ -152,29 +148,29 @@ public class SokoDBMapper implements IDBMapper
 		{
 			if (session!=null)
 			{
-			session.close();
+			      session.close();
 			}
 		}
 		
 		return worked;
 	}
 
-
 	@Override
-	public boolean isEntityExist(POJO pojo) 
+	public POJO isEntityExist(POJO pojo) 
 	{
 	
 		boolean flag=false;
 		Session session=null;
 		Transaction tx=null;
+		POJO pp=null;
 		try
 		{
 			session=factory.openSession();
 			tx=session.beginTransaction();
-			POJO pp = null;
 			if(pojo instanceof HighScoreP)
 			{
-				return false;
+				System.out.println("[SokoMapper]: Cannot search HighScoreP - id is not String");
+				return null;
 			}
 				pp= session.get(pojo.getClass(),pojo.getName());
 
@@ -198,7 +194,7 @@ public class SokoDBMapper implements IDBMapper
 				session.close();
 			}
 		}
-		return flag;
+		return pp;
 	}
 
 	@Override
