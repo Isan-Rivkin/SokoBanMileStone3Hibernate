@@ -22,10 +22,10 @@ public class CommandSignUp implements Command {
 	@Override
 	public void execute() 
 	{	
-		new Thread(()->
-		{
+		//new Thread(()->
+	//	{
 			model.signUpHighScore(pName, SokoUtil.extractLevelNameFromPath(model.getCurrentLevelPath()), model.getPlayerSteps(0), time);
-		});
+	//	});
 	}
 
 	@Override
