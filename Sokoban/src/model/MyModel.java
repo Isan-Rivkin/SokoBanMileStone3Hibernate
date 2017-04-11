@@ -37,7 +37,7 @@ public class MyModel extends Observable implements FModel,Observer
 	private String currentLevelPath;
 	private int winningSteps;
 	private IDataManager hs_manager;
-	private IDBMapper mapper;
+	private IDBMapper mapper; 
 
 	
 	public MyModel(Policy policy) 
@@ -199,19 +199,9 @@ public class MyModel extends Observable implements FModel,Observer
 	@Override
 	public List<HighScoreP> search(String classify, String name, String orderType)
 	{
-		
-		if(classify.equals("l"))
-		{
-			/**
-			 * need to decide what to do since there are 2 options
-			 * user insert query and click search OR user click HIGHSCORE button
-			 * my offer : to extract level name from path in a seperate command + attach that command to the HIhGHSCORE buTTON
-			 * that method will use this current method with extracted name 
-			 */
-		} 
-		return null;
-		
-		
+		hs_manager.search(classify, name, orderType);
+		updateObserver("displayhs");
+		return hs_manager.getCurrentHighScoreList();
 	}
 
 	@Override
@@ -244,6 +234,12 @@ public class MyModel extends Observable implements FModel,Observer
 		}
 		setChanged();
 		notifyObservers(params);
+	}
+
+	@Override
+	public List<HighScoreP> getCurrentHighScoreList() 
+	{
+		return hs_manager.getCurrentHighScoreList();
 	}
 
 }

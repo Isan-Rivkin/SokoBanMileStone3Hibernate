@@ -39,7 +39,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.database.HighScoreP;
 import model.policy.Iinterpeter;
 
 public class MyView extends Observable implements FView,Initializable,Observer
@@ -384,7 +383,7 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		return this.port;
 	}
 	// test
-	public void onTestHSbutton(List<HighScoreP> list )
+	public void onTestHSbutton()
 	{
 		MyView parent = this;
 		Platform.runLater(new Runnable() {
@@ -404,7 +403,6 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			    
 			    hs_view = (HighScoreView)fxmlLoader.getController();
 			    hs_view.addObserver(parent);
-			    hs_view.updateTable(list);
 			    Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 			    dialog.setTitle("High-Scores Table ");
 			    dialog.getDialogPane().setContent(root);

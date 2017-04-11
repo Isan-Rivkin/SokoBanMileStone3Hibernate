@@ -13,6 +13,8 @@ import model.database.PlayerP;
 public class HSDataManager implements IDataManager 
 {
 	private IDBMapper mapper;
+	private List<HighScoreP> hs_list;
+	
 	public HSDataManager(IDBMapper mapper) 
 	{
 		this.mapper=mapper;
@@ -48,7 +50,8 @@ public class HSDataManager implements IDataManager
 				query.initLexiLevelName();
 		}
 		query.setMaxResults(50);
-		return mapper.searchHighScore(query);
+		hs_list= mapper.searchHighScore(query);
+		return hs_list;
 	}
 
 	@Override
@@ -125,6 +128,11 @@ public class HSDataManager implements IDataManager
 			return p;
 		}
 		return null;
+	}
+	@Override
+	public List<HighScoreP> getCurrentHighScoreList() 
+	{
+		return hs_list;
 	}
 
 }

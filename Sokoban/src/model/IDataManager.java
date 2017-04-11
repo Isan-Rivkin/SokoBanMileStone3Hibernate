@@ -13,6 +13,7 @@ public interface IDataManager
 	public PlayerP signUpUser(String pName);
 	public boolean deleteQuery(POJO idPOJO,String ... delete);
 	public void save(POJO line);
+	public List<HighScoreP> getCurrentHighScoreList();
 	
 	
 }

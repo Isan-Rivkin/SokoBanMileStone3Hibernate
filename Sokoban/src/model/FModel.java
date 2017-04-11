@@ -30,5 +30,6 @@ public interface FModel {
 	public boolean deleteRow(POJO idPOJO,String ... delete);
 	// save a random pojo - jojo
 	public void save(POJO line);
+	public List<HighScoreP> getCurrentHighScoreList();
 	
 }
