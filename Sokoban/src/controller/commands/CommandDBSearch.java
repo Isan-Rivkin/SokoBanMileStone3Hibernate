@@ -27,14 +27,17 @@ public class CommandDBSearch implements Command
 	@Override
 	public void execute() 
 	{
-		if (flag.equals("l") && lName.equals(""))
+		new Thread(()->
 		{
-			model.search(flag, SokoUtil.extractLevelNameFromPath(model.getCurrentLevelPath()), pName,orderBy);
-		}
-		else
-		{
-			model.search(flag,lName,pName, orderBy);
-		}
+			if (flag.equals("l") && lName.equals(""))
+			{
+				model.search(flag, SokoUtil.extractLevelNameFromPath(model.getCurrentLevelPath()), pName,orderBy);
+			}
+			else
+			{
+				model.search(flag,lName,pName, orderBy);
+			}
+		}).start();
 	}
 
 	@Override

@@ -21,8 +21,11 @@ public class CommandInseretLevelDB implements Command {
 	@Override
 	public void execute() 
 	{
-		LevelP line = new LevelP(lName, path);
-		model.save(line);
+		new Thread(()->
+		{
+			LevelP line = new LevelP(lName, path);
+			model.save(line);
+		});
 	}
 
 	@Override
