@@ -103,6 +103,7 @@ public class MyModel extends Observable implements FModel,Observer
 			params.add("display");
 			setChanged();
 			notifyObservers(params);
+			updateObserver("insertleveltodb",SokoUtil.extractLevelNameFromPath(path),path);
 		}else{
 			params.add("alert");
 			params.add("Please insert .ser/.obj in the end of the file name :)");
@@ -150,7 +151,7 @@ public class MyModel extends Observable implements FModel,Observer
 		if(currentLevel.isPlayerWon() && currentLevel.getCurrent_steps()<winningSteps){
 			winningSteps=currentLevel.getCurrent_steps();
 			LinkedList<String> won=new LinkedList<>();
-			won.add("alert");
+			won.add("winalert");
 			won.add("Congratulations! You are Winner steps:"+this.getPlayerSteps(0));
 			setChanged();
 			notifyObservers(won);
@@ -208,7 +209,8 @@ public class MyModel extends Observable implements FModel,Observer
 	public void signUpHighScore(String pName, String lName, Integer currentSteps, Long currentTime)
 	{
 		hs_manager.signUpHighScore(pName, lName, currentSteps, currentTime);
-		//updateObserver("??");
+		updateObserver("search","l","","","");
+		
 	}
 
 	@Override
@@ -223,6 +225,7 @@ public class MyModel extends Observable implements FModel,Observer
 	public void save(POJO line) 
 	{
 		hs_manager.save(line);
+		updateObserver("msgheader","Saved");
 	}
 	
 	public void updateObserver(String ...strings)

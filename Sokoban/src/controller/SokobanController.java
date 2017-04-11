@@ -8,15 +8,20 @@ import java.util.Observable;
 import java.util.Observer;
 
 import controller.commands.Command;
+import controller.commands.CommandDBSearch;
 import controller.commands.CommandDisplay;
 import controller.commands.CommandDisplayAlert;
 import controller.commands.CommandDisplayFooterMessage;
+import controller.commands.CommandDisplayHS;
 import controller.commands.CommandDisplayHeaderMessage;
 import controller.commands.CommandExit;
+import controller.commands.CommandInseretLevelDB;
 import controller.commands.CommandLevelSaver;
 import controller.commands.CommandLoadLevel;
 import controller.commands.CommandMove;
 import controller.commands.CommandReset;
+import controller.commands.CommandSignUp;
+import controller.commands.CommandWinningAlert;
 import controller.general_controller.GeneralController;
 import controller.server.CLIHandler;
 import controller.server.SokoServer;
@@ -64,6 +69,11 @@ public class SokobanController implements FController,Observer {
 		this.create_cmd.put("alert", new CommandDisplayAlert(server,view));
 		this.create_cmd.put("msgfooter",new CommandDisplayFooterMessage(server, view));
 		this.create_cmd.put("reset", new CommandReset(model));
+		this.create_cmd.put("search", new CommandDBSearch(model));
+		this.create_cmd.put("signup", new CommandSignUp(model));
+		this.create_cmd.put("displayhs", new CommandDisplayHS(model,view));
+		this.create_cmd.put("winalert", new CommandWinningAlert(view));
+		this.create_cmd.put("insertleveltodb", new CommandInseretLevelDB(model));
 		
 	}
 	@Override

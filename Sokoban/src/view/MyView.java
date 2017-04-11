@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +32,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -57,7 +59,7 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	private Timer t,t2;
 	private int port=0;
 	private Resources img_resources;
-
+	private Stack<Dialog<ButtonType>> dialog_stack;
 
 	@FXML
 	private SokoDisplayer sokoDisplayer;
@@ -81,7 +83,8 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	}
 
 	@Override
-	public void displayHeaderMessage(String message) {
+	public void displayHeaderMessage(String message) 
+	{
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -92,7 +95,8 @@ public class MyView extends Observable implements FView,Initializable,Observer
 
 
 	@Override
-	public void displayAlert(String message) {
+	public void displayAlert(String message)
+	{
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -103,13 +107,28 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			}
 		});
 	}
-
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void displayWinningAlert(String message) 
+	{
+		Platform.runLater(()->{
+			TextInputDialog dialog = new TextInputDialog("your name");
+			dialog.setTitle("Congratz you finished ! ");
+			
+			String time=getTime();
+			dialog.setHeaderText(message + " Time: " +time);
+			dialog.setContentText("Please enter your name:");
+			Optional<String> result = dialog.showAndWait();
+			result.ifPresent(name -> updateObservers("signup",name, time));
+			
+		});
+	}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) 
+	{
 		chooseGender();
 		playSong();
+		dialog_stack=new Stack<Dialog<ButtonType>>();
 		sokoDisplayer.drawOpenningImage();
-
 		sokoDisplayer.addEventFilter(MouseEvent.MOUSE_CLICKED, (e)->sokoDisplayer.requestFocus());
 		sokoDisplayer.setOnKeyPressed(new EventHandler<KeyEvent>(){
 			@Override
@@ -244,23 +263,33 @@ public class MyView extends Observable implements FView,Initializable,Observer
             }
         });
 	}
-  public void playSong(){
+  public void playSong()
+  {
 				m_BackgroundPlayer = new MediaPlayer(new Media(new File(img_resources.getSongFileName()).toURI().toString()));
 				m_BackgroundPlayer.setVolume(0.5);
 				m_BackgroundPlayer.play();
   }
-  public void muteSong(){
+  public void muteSong()
+  {
 	  m_BackgroundPlayer.setMute(true);
   }
 	
-	public int incMin(){
+	public int incMin()
+	{
 		return ++minTime;
 	}
 	
-	public String showTime(){
+	public String showTime()
+	{
 		incSec();
 		time = ""+getMin() + ":" + getSec();
 		return time;
+	}
+	public String getTime()
+	{
+		int min = getMin()*60+getSec();
+		String t =""+min;
+		return t;
 	}
 	public void startTimer(){
 		this.gameAlive=true;
@@ -302,10 +331,12 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		});
 		
 	}
-	public void onAbout(){
+	public void onAbout()
+	{
 		this.displayAlert("Soko-Ban and the missing Ack\nDevelopers:\nIsan Rivkin & Daniel Hake.\nMusic:\nDaniel Hake & Isan Rivkin.");		
 	}
-	public void onExit(){
+	public void onExit()
+	{
 		this.gameAlive=false;
 		LinkedList<String> params=new LinkedList<String>();	
 		params.add("exit");
@@ -317,7 +348,8 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		Platform.exit();
 		System.exit(0);
 	}
-	public void chooseGender(){
+	public void chooseGender()
+	{
 		img_resources=new Resources();
 		List<String> choices = new ArrayList<>();
 		choices.add("Male");
@@ -361,14 +393,13 @@ public class MyView extends Observable implements FView,Initializable,Observer
 
 	}
 	//reset level button
-	public void onResetButton(){
+	public void onResetButton()
+	{
 		LinkedList<String> params = new LinkedList<String>();
 		params.add("reset");
 		zeroTime();
 		setChanged();
 		notifyObservers(params);
-		
-		
 	}
 	public void onServer(){
 		if(port>0)
@@ -377,17 +408,19 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			this.displayAlert("No server connected");		
 
 	}
-	public void setPort(int port){
+	public void setPort(int port)
+	{
 		this.port=port;
 	}
 
-	public int getPort(){
+	public int getPort()
+	{
 		return this.port;
 	}
-	// test
-	public void onHighScoresButton()
+	// highscore stuff 
+	public void onHighScoreButton()
 	{
-		updateObservers("l","","","");
+		updateObservers("search","l","","","");
 	}
 	
 	@Override
@@ -403,12 +436,15 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			    try
 			    {
 			    	root = (BorderPane) fxmlLoader.load();
+			    	root.setStyle("-fx-background-color: #1d1d1d;");
+			    	
 			    }
 			    catch(IOException e)
 			    {
 			    	e.printStackTrace();
 			    }
 			    hs_view = (HighScoreView)fxmlLoader.getController();
+			    
 			    hs_view.addObserver(parent);
 			    hs_view.updateTable(list);
 			    Dialog<ButtonType> dialog = new Dialog<ButtonType>();
@@ -421,7 +457,11 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			    Node closeButton  = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
 			    closeButton.managedProperty().bind(closeButton.visibleProperty());
 			    closeButton.setVisible(false);
-			    dialog.showAndWait();
+			    //closeButton.setOnMouseClicked();
+			    
+			    addDialogToStack(dialog);
+			    clearDialogStack();
+			    dialog.show();
 			    
 			}
 		});
@@ -431,7 +471,13 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
-		System.out.println("I am being invoked UR MAMA ");
+		List<String> list = (LinkedList<String>)arg1;
+		String [] param= new String[list.size()];
+		for(int i=0;i<param.length; ++i)
+		{
+			param[i]=list.get(i);
+		}
+		updateObservers(param);
 	}
 
 	
@@ -444,5 +490,23 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		setChanged();
 		notifyObservers(params);
 	}
+	public void addDialogToStack(Dialog<ButtonType> dialog) 
+	{
+		dialog_stack.push(dialog);
+	}
+	
+	public void clearDialogStack()
+	{
+		if(dialog_stack.size()<2)
+			return;
+		Dialog<ButtonType> topDialog = dialog_stack.pop();
+		while(dialog_stack.size()>0)
+		{
+			dialog_stack.pop().close();
+		}
+		dialog_stack.push(topDialog);
+		
+	}
+	
 
 }

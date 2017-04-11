@@ -17,9 +17,9 @@ public class HighScoreTableRow
 		this.playerSteps= new SimpleStringProperty(""+playerSteps);
 		this.playerTime = new SimpleStringProperty(""+playerTime);
 	}
-	public SimpleStringProperty getLevelName()
+	public String getLevelName()
 	{
-		return levelName;
+		return levelName.get();
 	}
 	public void setLevelName(SimpleStringProperty levelName)
 	{

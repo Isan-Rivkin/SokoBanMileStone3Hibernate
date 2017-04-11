@@ -177,11 +177,19 @@ public class SokoUtil {
 	//extract level name from a given full path 
 	   public static String extractLevelNameFromPath(String path)
 	   {
-			String type="";
+		    if(path == null)
+		    {
+		    	path="";
+		    	return path;
+		    }
+		    int j = path.lastIndexOf('\\');    
+		    String type="";
 	        int i = path.lastIndexOf('.');
-	        if (i > 0)
+	        if(i == -1)
+	        	return type;
+	        if (i >= 0)
 	        {
-	        type = path.substring(0,i);
+	        type = path.substring(j+1,i);
 	        }     
 		   return type; 
 	   }

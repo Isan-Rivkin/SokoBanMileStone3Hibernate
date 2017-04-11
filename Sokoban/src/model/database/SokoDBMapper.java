@@ -33,26 +33,24 @@ public class SokoDBMapper implements IDBMapper
 		if(query.getPlayerName() == null && query.getLevelName() != null)
 		{
 			System.out.println("I enter here level name not null = " + query.getLevelName());
-
-			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE hs.levelName = :levelName "
-			+ "ORDER BY hs."
-			+(query.getOrderBy()));
-			q.setParameter("levelName", query.getLevelName());
+			q = session.createQuery("From " +HIGHSCORE_TABLE + " hs WHERE hs.levelName LIKE :levelName "
+					+"ORDER BY hs." + query.getOrderBy());
+			q.setParameter("levelName", "%"+query.getLevelName()+"%");
 		}
 		else if(query.getLevelName() == null && query.getPlayerName() != null)
 		{
 			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE "
-			+ "hs.playerName =:playerName ORDER BY hs."
+			+ "hs.playerName LIKE :playerName ORDER BY hs."
 			+(query.getOrderBy()));
-			q.setParameter("playerName", query.getPlayerName());
+			q.setParameter("playerName", "%"+query.getPlayerName()+"%");
 		}
 		else
 		{
-			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE hs.levleName =:levelName AND "
-			+ "hs.playerName =:playerName ORDER BY hs."
+			 q = session.createQuery("From "+HIGHSCORE_TABLE+" hs WHERE hs.levelName LIKE :levelName AND "
+			+ "hs.playerName LIKE :playerName ORDER BY hs."
 			+(query.getOrderBy()));
-			 q.setParameter("playerName", query.getPlayerName());
-			 q.setParameter("levelName", query.getLevelName());
+			 q.setParameter("playerName", "%"+query.getPlayerName()+"%");
+			 q.setParameter("levelName", "%"+query.getLevelName()+"%");
 		}
 		
 		q.setMaxResults(query.getMaxResults());

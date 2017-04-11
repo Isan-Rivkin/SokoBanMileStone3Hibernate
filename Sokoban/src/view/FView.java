@@ -11,6 +11,7 @@ public interface FView {
 	public void displayHeaderMessage(String message);
 	public void displayFooterMessage(String message);
 	public void displayAlert(String message);
+	public void displayWinningAlert(String message);
 	public void redraw(char[][] map_static, char[][] map_movables,int steps);
 	public void setInterpeterMove(Iinterpeter interpeterMove);
 	public void onExit();
@@ -18,4 +19,5 @@ public interface FView {
 	public int getPort();
 	//highscore
 	public void updateHighScoreTable(List<HighScoreP> list);
+	
 }
