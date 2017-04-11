@@ -8,7 +8,7 @@ import model.database.PlayerP;
 
 public interface IDataManager
 {
-	public List<HighScoreP> search(String classify, String name, String orderType);
+	public List<HighScoreP> search(String classify, String lName,String pName,String orderType);
 	public void signUpHighScore(String pName, String lName, Integer currentSteps, Long currentTime);
 	public PlayerP signUpUser(String pName);
 	public boolean deleteQuery(POJO idPOJO,String ... delete);

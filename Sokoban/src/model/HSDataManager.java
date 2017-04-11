@@ -20,34 +20,36 @@ public class HSDataManager implements IDataManager
 		this.mapper=mapper;
 	}
 	@Override
-	public List<HighScoreP> search(String classify, String name, String orderType) 
+	public List<HighScoreP> search(String classify, String lName,String pName,String orderType) 
 	{
 		/**
 		 * filer =l,p , playerName/levelName , orderby="","steps","time","name"
 		 */
 		IQuery query = new HighScoreQuery();
-		if(classify.equals("l"))
+		if(classify.equals(""))
 		{
-			query.setLevelName(name);
+			query.setLevelName(lName);
+			query.setPlayerName(pName);
+		}
+		else if(classify.equals("l"))
+		{
+			query.setLevelName(lName);
 		}
 		else if(classify.equals("p"))
 		{
-			query.setPlayerName(name);
+			query.setPlayerName(pName);
 		}
-		if(orderType.equals("steps"))
+		if(orderType.equals("") && classify.equals("l"))
+		{
+			query.initLexiLevelName();
+		}
+		else if(orderType.equals("steps"))
 		{
 			query.initOrderBySteps();
 		}
 		else if(orderType.equals("time"))
 		{
 			query.initOrderByTime();
-		}
-		else if(orderType.equals("name"))
-		{
-			if(classify.equals("p"))
-				query.initLexiPlayerName();
-			else
-				query.initLexiLevelName();
 		}
 		query.setMaxResults(50);
 		hs_list= mapper.searchHighScore(query);

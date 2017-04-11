@@ -23,7 +23,7 @@ public interface FModel {
 	public String getCurrentLevelPath();
 	// ---  data manager --- //
 	//returns list of highscores
-	public List<HighScoreP> search(String classify, String name, String orderType);
+	public List<HighScoreP> search(String classify, String lName,String pName, String orderType);
 	// sign up user that finished a level
 	public void signUpHighScore(String pName, String lName, Integer currentSteps, Long currentTime);
 	// delete a row in any table

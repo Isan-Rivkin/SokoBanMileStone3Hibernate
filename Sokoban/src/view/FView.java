@@ -1,7 +1,8 @@
 package view;
 
-import java.io.OutputStream;
+import java.util.List;
 
+import model.database.HighScoreP;
 import model.policy.Iinterpeter;
 
 
@@ -15,5 +16,6 @@ public interface FView {
 	public void onExit();
 	public void setPort(int port);
 	public int getPort();
-
+	//highscore
+	public void updateHighScoreTable(List<HighScoreP> list);
 }

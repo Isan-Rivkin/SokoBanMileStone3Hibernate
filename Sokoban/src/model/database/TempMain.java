@@ -64,12 +64,12 @@ public class TempMain {
 		data_manager.signUpHighScore("shlomi", "testlevel1", new Integer(1), new Long(1666666));
 		data_manager.signUpHighScore("shlomi", "testlevel1", new Integer(166), new Long(16));
 		//data_manager.deleteQuery(new PlayerP(), "shlomi");
-		List<HighScoreP> list = data_manager.search("p", "shlomi", "time");
-        for(HighScoreP hs : list)
-		{
-			System.out.println("TIME : " + hs.getPlayerTime());
-		}
-		
+//		List<HighScoreP> list = data_manager.search("p", "shlomi", "time");
+//        for(HighScoreP hs : list)
+//		{
+//			System.out.println("TIME : " + hs.getPlayerTime());
+//		}
+//		
 		
 	}
 

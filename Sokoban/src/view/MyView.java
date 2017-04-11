@@ -39,7 +39,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.database.HighScoreP;
 import model.policy.Iinterpeter;
+import view.highScoreLogic.HighScoreView;
 
 public class MyView extends Observable implements FView,Initializable,Observer
 {
@@ -383,11 +385,17 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		return this.port;
 	}
 	// test
-	public void onTestHSbutton()
+	public void onHighScoresButton()
+	{
+		updateObservers("l","","","");
+	}
+	
+	@Override
+	public void updateHighScoreTable(List<HighScoreP> list)
 	{
 		MyView parent = this;
-		Platform.runLater(new Runnable() {
-			
+		Platform.runLater(new Runnable() 
+		{
 			@Override
 			public void run() {
 			    BorderPane root=null;
@@ -400,9 +408,9 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			    {
 			    	e.printStackTrace();
 			    }
-			    
 			    hs_view = (HighScoreView)fxmlLoader.getController();
 			    hs_view.addObserver(parent);
+			    hs_view.updateTable(list);
 			    Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 			    dialog.setTitle("High-Scores Table ");
 			    dialog.getDialogPane().setContent(root);
@@ -419,9 +427,22 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		});
 	}
 
+
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable arg0, Object arg1)
+	{
 		System.out.println("I am being invoked UR MAMA ");
+	}
+
+	
+	public void updateObservers(String ...strings)
+	{	List<String> params = new LinkedList<String>();
+		for(String s : strings)
+		{
+			params.add(s);
+		}
+		setChanged();
+		notifyObservers(params);
 	}
 
 }

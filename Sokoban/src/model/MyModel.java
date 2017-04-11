@@ -197,9 +197,9 @@ public class MyModel extends Observable implements FModel,Observer
 	}
 
 	@Override
-	public List<HighScoreP> search(String classify, String name, String orderType)
+	public List<HighScoreP> search(String classify, String lName,String pName, String orderType)
 	{
-		hs_manager.search(classify, name, orderType);
+		hs_manager.search(classify, lName, pName, orderType);
 		updateObserver("displayhs");
 		return hs_manager.getCurrentHighScoreList();
 	}
