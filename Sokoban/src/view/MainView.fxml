@@ -42,6 +42,7 @@
             <Button id="record-sales" fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveLevel" stylesheets="@application.css" text="Save" textFill="WHITE" />
             <Button id="record-sales" fx:id="buttonMute" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#muteSong" stylesheets="@application.css" text="Mute" textFill="WHITE" />
             <Button id="record-sales" fx:id="buttonExit" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExit" stylesheets="@application.css" text="Exit" textFill="WHITE" />
+            <Button fx:id="testHSbutton" mnemonicParsing="false" onAction="#onTestHSbutton" text="CLICK ME PLS" />
          </children>
       </VBox>
    </left>

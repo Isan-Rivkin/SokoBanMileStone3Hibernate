@@ -1,11 +1,13 @@
 package view;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -18,22 +20,29 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.database.HighScoreP;
 import model.policy.Iinterpeter;
 
-public class MyView extends Observable implements FView,Initializable
+public class MyView extends Observable implements FView,Initializable,Observer
 {
 	private char[][] map_mov,map_stat;
 	private Iinterpeter interpeterMove;
@@ -59,6 +68,11 @@ public class MyView extends Observable implements FView,Initializable
 	private Label headerMsgLabel;
 	@FXML
 	private Label footerMsgLabel;
+	//temp stuff for hhighscore
+	@FXML 
+	private HighScoreView hs_view;
+	@FXML
+	private Button button1;
 
 	public void MyView() {
 		stage =null;
@@ -197,7 +211,7 @@ public class MyView extends Observable implements FView,Initializable
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
-		stage.setFullScreen(true);
+		//stage.setFullScreen(true);
 		//x button
 				this.stage.setOnCloseRequest((WindowEvent event)->onExit());
 						/*new EventHandler<WindowEvent>() {
@@ -369,6 +383,47 @@ public class MyView extends Observable implements FView,Initializable
 	public int getPort(){
 		return this.port;
 	}
-	
+	// test
+	public void onTestHSbutton(List<HighScoreP> list )
+	{
+		MyView parent = this;
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+			    BorderPane root=null;
+			    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("highscore.fxml"));
+			    try
+			    {
+			    	root = (BorderPane) fxmlLoader.load();
+			    }
+			    catch(IOException e)
+			    {
+			    	e.printStackTrace();
+			    }
+			    
+			    hs_view = (HighScoreView)fxmlLoader.getController();
+			    hs_view.addObserver(parent);
+			    hs_view.updateTable(list);
+			    Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+			    dialog.setTitle("High-Scores Table ");
+			    dialog.getDialogPane().setContent(root);
+			    dialog.setWidth(500);
+			    dialog.setHeight(400);
+			    dialog.setResizable(false);
+			    dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+			    Node closeButton  = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
+			    closeButton.managedProperty().bind(closeButton.visibleProperty());
+			    closeButton.setVisible(false);
+			    dialog.showAndWait();
+			    
+			}
+		});
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		System.out.println("I am being invoked UR MAMA ");
+	}
 
 }
