@@ -35,7 +35,7 @@ public class SokoDBMapper implements IDBMapper
 			System.out.println("I enter here level name not null = " + query.getLevelName());
 			q = session.createQuery("From " +HIGHSCORE_TABLE + " hs WHERE hs.levelName LIKE :levelName "
 					+"ORDER BY hs." + query.getOrderBy());
-			q.setParameter("levelName", "%"+query.getLevelName()+"%");
+			q.setParameter("levelName", query.getLevelName());
 		}
 		else if(query.getLevelName() == null && query.getPlayerName() != null)
 		{
