@@ -6,6 +6,7 @@ import common_data.item.Item;
 import common_data.item.Movable;
 import common_data.item.Position2D;
 import common_data.level.Level;
+import searching.delete.SearchGoalState;
 import sokoban_utils.SokoUtil;
 /**
  * 
@@ -51,15 +52,44 @@ public class CalculateMove implements Imove{
 		
 	return false;
 	}
-	
+	public boolean isPossibleMovement(Level level,String direction)
+	{
+		if(util.isValidDirection(direction))
+		{
+			this.level=level;
+			SearchGoalState sgs = new SearchGoalState();
+			boolean canBeMoved=false;
+			source=level.getPlayerPosition(0); 
+			path=this.getPathToDestination(direction);
+			if(path != null)
+				canBeMoved=policy.allPathCanBeMoved(path);
+			if(canBeMoved)
+			{
+				return true;	
+			}
+		}
+		return false;
+	}
 	/**
 	 * getting an array of items that will be moved
 	 * @param direction
 	 * @return an array after an update of the positions
 	 */
 	// get the full path
-	private ArrayList<Item> getPathToDestination(String direction){
+	private ArrayList<Item> getPathToDestination(String direction)
+	{
 		Movable movables[][]=level.getMovables();
+//		for(int i=0;i<movables.length;++i)
+//		{
+//			for(int j=0;j<movables[0].length;++j)
+//			{
+//				if(movables[i][j] == null)
+//					System.out.print("+");
+//				else
+//					System.out.print(movables[i][j].getId_char());
+//			}
+//			System.out.println();
+//		}
 		Item map[][]=level.getMap();
 		int lenthTillNull=0;
 		int startX=source.getX();
@@ -111,6 +141,7 @@ public class CalculateMove implements Imove{
 		default:
 			break;
 		}
+		
 		return path;
 	}
 	/**
@@ -122,9 +153,11 @@ public class CalculateMove implements Imove{
  * the path vector of all items.
  * iterate both and update new position and old position though level.updatePosition(oldPosition, newPosition);
  */
-private void updateLevel(){
+private void updateLevel()
+{
 	
-	if(path.size()==1){
+	if(path.size()==1)
+	{
 		level.updatePosition(source, path.get(0).getPosition());
 	}else{
 			ArrayList<Position2D> oldPos=util.createPosFromPath(path);
@@ -134,7 +167,8 @@ private void updateLevel(){
 			level.updatePosition(source, new Position2D(oldPos.get(0).getX(),oldPos.get(0).getY()));
 		}
 }
-public Level getLevel(){
+public Level getLevel()
+{
 	path=new ArrayList<Item>();
 	return level;
 }

@@ -1,12 +1,12 @@
 package common_data.level;
 
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import common_data.item.Box;
 import common_data.item.BoxOnTarget;
+import common_data.item.Floor;
 import common_data.item.Item;
 import common_data.item.Movable;
 import common_data.item.Player;
@@ -31,7 +31,7 @@ import common_data.item.Wall;
  */
 //test for git
 
-public class Level implements LevelInterface,Serializable{
+public class Level implements LevelInterface,Serializable,Cloneable{
 
 	
 	private Item map[][];
@@ -74,8 +74,115 @@ public class Level implements LevelInterface,Serializable{
     	this.movables=movables;
     }
     ///methods 
-    
-    /**
+    public Level getCopy()
+    {
+    	return (Level)clone();
+    }
+    @Override
+    protected Object clone()
+    {
+    	Level l = new Level();
+    	l.min_steps=this.getMin_steps();
+    	l.current_steps=this.getCurrent_steps();
+    	l.height=this.getHeight();
+    	l.width=this.getWidth();
+    	l.players= new ArrayList<Player>();
+    	// players copy
+    	for(int i=0;i<this.players.size();++i)
+    	{
+    		Player p = new Player();
+    		Position2D pos = new Position2D(this.players.get(i).getPosX(), this.players.get(i).getPosY());
+    		p.setPosition(pos.getX(),pos.getY());
+    		l.players.add(p);
+    	}
+    	// targets copy
+    	l.targets = new ArrayList<Target>();
+    	for(int i=0;i<this.targets.size();++i)
+    	{
+    		Target t = new Target();
+    		Position2D pos = new Position2D(this.targets.get(i).getPosX(),this.targets.get(i).getPosY());
+    		t.setPosition(pos.getX(), pos.getY());
+    		l.targets.add(t);
+    	}
+    	// boxes copy
+    	l.boxes=new ArrayList<Box>();
+    	for(int i=0;i<this.boxes.size();++i)
+    	{
+    		Box b = new Box();
+    		Position2D pos = new Position2D(this.boxes.get(i).getPosX(),this.boxes.get(i).getPosY());
+    		b.setPosition(pos.getX(),pos.getY());
+    		l.boxes.add(b);
+    	}
+    	// walls copy 
+    	l.walls=new ArrayList<Wall>();
+    	for(int i=0;i<this.walls.size();++i)
+    	{
+    		Wall w = new Wall();
+    		Position2D pos = new Position2D(this.walls.get(i).getPosX(),this.walls.get(i).getPosY());
+    		w.setPosition(pos.getX(),pos.getY());
+    		l.walls.add(w);
+    	}
+    	l.map = generateMapCopy(l.walls,l.targets,this.map);
+    	l.movables=generateMovablesCopy(l.boxes,l.players,this.movables);
+		return l;
+    }
+    private Movable[][] generateMovablesCopy(ArrayList<Box> boxes_c,ArrayList<Player> players_c ,Movable[][] original_c)
+    {
+    	Movable[][] movables = new Movable[original_c.length][original_c[0].length];
+    	for(int i=0;i<original_c.length;++i)
+    	{
+    		for(int j=0;j<original_c[0].length;++j)
+    		{
+    			movables[i][j]=null;
+    		}
+    	}
+    	for(Player p : players_c)
+    	{
+    		movables[p.getPosX()][p.getPosY()]=p;
+    	}
+    	for(Box b: boxes_c)
+    	{
+    		movables[b.getPosX()][b.getPosY()]=b;
+    	}
+		return movables;
+	}
+	private Item[][] generateMapCopy(ArrayList<Wall> walls,ArrayList<Target> targets ,Item[][] original) 
+    {
+    	Item[][] copy= new Item[original.length][original[0].length];
+    	for(int i=0;i<copy.length;++i)
+    	{
+    		for(int j=0;j<copy[0].length;++j)
+    		{
+    			copy[i][j]=null;
+    		}
+    	}
+    	for(Target t : targets)
+    	{
+    		copy[t.getPosX()][t.getPosY()] = t;
+    	}
+    	for(Box b : boxes)
+    	{
+    		copy[b.getPosX()][b.getPosY()] = b;
+    	}
+    	for(Wall w : walls )
+    	{
+    		copy[w.getPosX()][w.getPosY()] = w;
+    	}
+    	for(int i=0;i<copy.length;++i)
+    	{
+    		for(int j=0;j<copy[0].length;++j)
+    		{
+    			if(copy[i][j] == null)
+    			{
+    				Floor f = new Floor();
+    				f.setPosition(i, j);
+    				copy[i][j]=f;
+    			}
+    		}
+    	}
+    	return copy;
+	}
+	/**
      * 
      * @param i row number
      * @param j col number 
@@ -345,5 +452,43 @@ public class Level implements LevelInterface,Serializable{
 	public void setAlreadyWon(boolean b) {
 		this.alreadyWon=false;
 	}
-
+	public ArrayList<Floor> getAllFloors()
+	{
+		boolean exist = false;
+		ArrayList<Floor> list = new ArrayList<Floor>();
+		for(int i=0;i<map.length;++i)
+		{
+			for(int j=0;j<map[0].length;++j)
+			{
+				if(map[i][j] instanceof Floor)
+				{
+					exist = true;
+					list.add((Floor)map[i][j]);
+				}
+			}
+		}
+		if(exist)
+			return list;
+		return null;
+	}
+	public ArrayList<Wall> getAllWalls()
+	{
+		boolean exist = false;
+		ArrayList<Wall> list = new ArrayList<Wall>();
+		for(int i=0;i<map.length;++i)
+		{
+			for(int j=0;j<map[0].length;++j)
+			{
+				if(map[i][j] instanceof Wall)
+				{
+					exist = true;
+					list.add((Wall)map[i][j]);
+				}
+			}
+		}
+		if(exist)
+			return list;
+		return null;
+	}
+	
 }

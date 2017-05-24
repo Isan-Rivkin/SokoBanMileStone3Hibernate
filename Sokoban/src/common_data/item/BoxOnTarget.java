@@ -7,6 +7,10 @@ public class BoxOnTarget implements Item{
 		char_id='$';
 	}
 	@Override
+	public String toString() {
+		return "$";
+	}
+	@Override
 	public void setPosition(Position pos) {
 		// TODO Auto-generated method stub
 		

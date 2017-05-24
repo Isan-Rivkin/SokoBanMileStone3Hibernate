@@ -6,7 +6,8 @@ import java.io.Serializable;
  * @author Daniel Hake & Isan Rivkin
  *
  */
-public interface Item extends Serializable {
+public interface Item extends Serializable
+{
 public void setPosition(Position pos);
 public Position2D getPosition();
 public void print();

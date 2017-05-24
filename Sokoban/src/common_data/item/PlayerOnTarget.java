@@ -1,6 +1,6 @@
 package common_data.item;
 
-public class PlayerOnTarget implements Item {
+public class PlayerOnTarget implements Item,Movable {
  
 	char id;
 	

@@ -1,4 +1,4 @@
-package view;
+        package view;
 	
 import controller.SokobanController;
 import javafx.application.Application;

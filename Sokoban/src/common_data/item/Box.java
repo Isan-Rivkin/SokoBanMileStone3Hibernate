@@ -10,4 +10,8 @@ public class Box extends CommonItems implements Movable,Item,Serializable{
 	public Box() {
 		this.id_char='@';
 	}
+	@Override
+	public String toString() {
+		return "@";
+	}
 }
