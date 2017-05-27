@@ -1,9 +1,11 @@
 package common_data.item;
 
-public class BoxOnTarget implements Item{
+public class BoxOnTarget implements Item
+{
 	private char char_id;
 	
-	public BoxOnTarget() {
+	public BoxOnTarget() 
+	{	this.
 		char_id='$';
 	}
 	@Override

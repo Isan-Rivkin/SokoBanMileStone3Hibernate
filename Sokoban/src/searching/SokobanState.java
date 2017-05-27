@@ -1,22 +1,28 @@
 package searching;
 
+import org.hibernate.internal.log.UrlMessageBundle;
+
 import common_data.level.Level;
+import searching.search_util.SearchUtil;
 
 public class SokobanState 
 {
 	char[][] game_map;
-	Level level;
-	public SokobanState(Level l) 
+	//boxpos
+	public SokobanState(char[][] urMama) 
 	{
-		this.game_map = l.getCharGameBoard();
-		level=l;
+		
+		this.game_map = urMama;
 	}
 	
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		String str = "";
-		for (int i = 0; i < game_map.length; i++) {
-			for (int j = 0; j < game_map.length; j++) {
+		for (int i = 0; i < game_map.length; i++) 
+		{
+			for (int j = 0; j < game_map[0].length; j++)
+			{
 				str += game_map[i][j];
 			}
 			str += "\n";
@@ -25,25 +31,32 @@ public class SokobanState
 	}
 	
 	@Override
-	public int hashCode() {		
+	public int hashCode() 
+	{		
 		return toString().hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object obj) {	
-		SokobanState state = (SokobanState)obj;		
+	public boolean equals(Object obj) 
+	{	
+		SokobanState state = (SokobanState)obj;
 		
-		for (int i = 0; i < game_map.length; i++) {
-			for (int j = 0; j < game_map.length; j++) {
+		
+		for (int i = 0; i < game_map.length; i++) 
+		{
+			for (int j = 0; j < game_map[0].length; j++) 
+			{
 				if (game_map[i][j] != state.game_map[i][j])
+				{
 					return false;
+				}
 			}			
 		}
 		
 		return true;
 	}
-	public Level getLevel()
+	public char[][] getMap()
 	{
-		return level;
+		return game_map;
 	}
 }

@@ -39,31 +39,31 @@ public class SearchGoalState
 	}
 	public static char[][] initCharGoalState(char [][] map , Position2D takeMeHere)
 	{
-		// extract player position + what is he on
-		Position2D playerPos = null;
-		char underPlayer= ' ';
-		char [][] newMap = duplicateMap(map);
-		for(int i=0; i<newMap.length;++i)
-		{
-			for(int j=0;j<newMap[0].length;++j)
-			{
-				if( (newMap[i][j] == new PlayerOnTarget().getId_char()) || (newMap[i][j] == new Player().getId_char()) )
-				{
-					playerPos = new Position2D(i, j);
-					if(newMap[i][j] == new Player().getId_char())
-						underPlayer = new Floor().getId_char();
-					else if(newMap[i][j] == new PlayerOnTarget().getId_char())
-						underPlayer = new PlayerOnTarget().getId_char();
-					break;
-				}
-			}
-		}
-		
-		if(playerPos == null || takeMeHere.getX() >= newMap.length|| takeMeHere.getY()>= newMap[0].length)
-			return null;
-		newMap[playerPos.getX()][playerPos.getY()] = underPlayer;
-		char newPositionSymbol ;//??? continue
-		
+//		// extract player position + what is he on
+//		Position2D playerPos = null;
+//		char underPlayer= ' ';
+//		char [][] newMap = duplicateMap(map);
+//		for(int i=0; i<newMap.length;++i)
+//		{
+//			for(int j=0;j<newMap[0].length;++j)
+//			{
+//				if( (newMap[i][j] == new PlayerOnTarget().getId_char()) || (newMap[i][j] == new Player().getId_char()) )
+//				{
+//					playerPos = new Position2D(i, j);
+//					if(newMap[i][j] == new Player().getId_char())
+//						underPlayer = new Floor().getId_char();
+//					else if(newMap[i][j] == new PlayerOnTarget().getId_char())
+//						underPlayer = new PlayerOnTarget().getId_char();
+//					break;
+//				}
+//			}
+//		}
+//		
+//		if(playerPos == null || takeMeHere.getX() >= newMap.length|| takeMeHere.getY()>= newMap[0].length)
+//			return null;
+//		newMap[playerPos.getX()][playerPos.getY()] = underPlayer;
+//		char newPositionSymbol ;//??? continue
+//		
 		return null;
 	}
 	private Position2D getEmptyMovablesSpot(Movable[][] movables,Item[][] map) 

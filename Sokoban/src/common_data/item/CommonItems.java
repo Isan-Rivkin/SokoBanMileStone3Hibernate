@@ -10,9 +10,9 @@ public abstract class CommonItems implements Item,Serializable{
 	//Consider adding strategy pattern atm all positions are 2d 
 	Position2D position;
 	public char id_char;
-
 	
-	public void setPosition(Position2D position) {
+	public void setPosition(Position2D position)
+	{
 		this.position = position;
 	}
 	/**
@@ -81,14 +81,14 @@ public char getId_char() {
 		return ""+getId_char();
 	}
 	// TODO DELETE ADDED AS TEST FOR STRIPS 
-	@Override
-	public int hashCode() 
-	{
-		return toString().hashCode();
-	}
-	@Override
-	public boolean equals(Object obj) 
-	{
-		return obj.toString().equals(this.toString().substring(0,1));
-	}
+//	@Override
+//	public int hashCode() 
+//	{
+//		return toString().hashCode();
+//	}
+//	@Override
+//	public boolean equals(Object obj) 
+//	{
+//		return obj.toString().equals(this.toString().substring(0,1));
+//	}
 }

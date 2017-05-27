@@ -193,5 +193,14 @@ public class SokoUtil {
 	        }     
 		   return type; 
 	   }
+	   // error debug help
+	   public static void printError(Object caller,String error, boolean allowMessages)
+	   {
+		   if(!allowMessages)
+			   return;
+		   String openning = "U: ";
+		   System.out.println(openning + caller.toString());
+		   System.out.println(openning + error);
+	   }
 
 }

@@ -78,54 +78,7 @@ public class Level implements LevelInterface,Serializable,Cloneable{
     {
     	return (Level)clone();
     }
-    @Override
-    protected Object clone()
-    {
-    	Level l = new Level();
-    	l.min_steps=this.getMin_steps();
-    	l.current_steps=this.getCurrent_steps();
-    	l.height=this.getHeight();
-    	l.width=this.getWidth();
-    	l.players= new ArrayList<Player>();
-    	// players copy
-    	for(int i=0;i<this.players.size();++i)
-    	{
-    		Player p = new Player();
-    		Position2D pos = new Position2D(this.players.get(i).getPosX(), this.players.get(i).getPosY());
-    		p.setPosition(pos.getX(),pos.getY());
-    		l.players.add(p);
-    	}
-    	// targets copy
-    	l.targets = new ArrayList<Target>();
-    	for(int i=0;i<this.targets.size();++i)
-    	{
-    		Target t = new Target();
-    		Position2D pos = new Position2D(this.targets.get(i).getPosX(),this.targets.get(i).getPosY());
-    		t.setPosition(pos.getX(), pos.getY());
-    		l.targets.add(t);
-    	}
-    	// boxes copy
-    	l.boxes=new ArrayList<Box>();
-    	for(int i=0;i<this.boxes.size();++i)
-    	{
-    		Box b = new Box();
-    		Position2D pos = new Position2D(this.boxes.get(i).getPosX(),this.boxes.get(i).getPosY());
-    		b.setPosition(pos.getX(),pos.getY());
-    		l.boxes.add(b);
-    	}
-    	// walls copy 
-    	l.walls=new ArrayList<Wall>();
-    	for(int i=0;i<this.walls.size();++i)
-    	{
-    		Wall w = new Wall();
-    		Position2D pos = new Position2D(this.walls.get(i).getPosX(),this.walls.get(i).getPosY());
-    		w.setPosition(pos.getX(),pos.getY());
-    		l.walls.add(w);
-    	}
-    	l.map = generateMapCopy(l.walls,l.targets,this.map);
-    	l.movables=generateMovablesCopy(l.boxes,l.players,this.movables);
-		return l;
-    }
+    
     private Movable[][] generateMovablesCopy(ArrayList<Box> boxes_c,ArrayList<Player> players_c ,Movable[][] original_c)
     {
     	Movable[][] movables = new Movable[original_c.length][original_c[0].length];
@@ -490,5 +443,54 @@ public class Level implements LevelInterface,Serializable,Cloneable{
 			return list;
 		return null;
 	}
+	@Override
+    protected Object clone()
+    {
+    	Level l = new Level();
+    	l.min_steps=this.getMin_steps();
+    	l.current_steps=this.getCurrent_steps();
+    	l.height=this.getHeight();
+    	l.width=this.getWidth();
+    	l.players= new ArrayList<Player>();
+    	// players copy
+    	for(int i=0;i<this.players.size();++i)
+    	{
+    		Player p = new Player();
+    		Position2D pos = new Position2D(this.players.get(i).getPosX(), this.players.get(i).getPosY());
+    		p.setPosition(pos.getX(),pos.getY());
+    		l.players.add(p);
+    	}
+    	// targets copy
+    	l.targets = new ArrayList<Target>();
+    	for(int i=0;i<this.targets.size();++i)
+    	{
+    		Target t = new Target();
+    		Position2D pos = new Position2D(this.targets.get(i).getPosX(),this.targets.get(i).getPosY());
+    		t.setPosition(pos.getX(), pos.getY());
+    		l.targets.add(t);
+    	}
+    	// boxes copy
+    	l.boxes=new ArrayList<Box>();
+    	for(int i=0;i<this.boxes.size();++i)
+    	{
+    		Box b = new Box();
+    		Position2D pos = new Position2D(this.boxes.get(i).getPosX(),this.boxes.get(i).getPosY());
+    		b.setPosition(pos.getX(),pos.getY());
+    		l.boxes.add(b);
+    	}
+    	// walls copy 
+    	l.walls=new ArrayList<Wall>();
+    	for(int i=0;i<this.walls.size();++i)
+    	{
+    		Wall w = new Wall();
+    		Position2D pos = new Position2D(this.walls.get(i).getPosX(),this.walls.get(i).getPosY());
+    		w.setPosition(pos.getX(),pos.getY());
+    		l.walls.add(w);
+    	}
+    	l.map = generateMapCopy(l.walls,l.targets,this.map);
+    	l.movables=generateMovablesCopy(l.boxes,l.players,this.movables);
+		return l;
+    }
 	
+
 }

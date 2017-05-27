@@ -1,40 +1,29 @@
 package searching;
-
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 
-import bfs.Action;
-import bfs.BFS;
-import bfs.Searchable;
-import bfs.Solution;
-import bfs.State;
 import common_data.item.Position2D;
 import common_data.level.Level;
-import model.policy.CalculateMove;
-import model.policy.Policy;
-import model.policy.SokobanPolicy;
-import planning.delete.LevelHandler;
-import searching.delete.SearchGoalState;
-
-public class SearchTestRun {
-	static String path = "./myLevels/search1.txt";
+import searchAlgoExtract.BFS;
+import searchAlgoExtract.Searchable;
+import searchAlgoExtract.Solution;
+import searching.playerAdapter.SokobanSearchAdapter;
+import searching.search_util.SearchUtil;
+public class SearchTestRun 
+{
+	static String path = "./levels/level1.txt";
 	public static void main(String[] args) throws FileNotFoundException 
 	{
-		LevelHandler handler = new LevelHandler();
-		Level l =handler.handle(path);
-		Position2D takeMe = new Position2D(1,2);
-		Position2D toHere= new Position2D(1,3);
-					
-		Policy policy = new SokobanPolicy();
-		SokobanSearchAdapter adapter=new SokobanSearchAdapter(l,new CalculateMove(policy));
-		adapter.setCoordinate(takeMe, toHere);
-		handler.printLevel(l);
+		
+		Position2D toHere= new Position2D(10,10);
+		Level level = SearchUtil.loadLevel(path);
+		SearchUtil.printLevel(level);
+		Searchable<SokobanState> adapter = new SokobanSearchAdapter(level.getCharGameBoard(), null,toHere);
 		BFS<SokobanState> bfs = new BFS<>();
+		System.out.println(SearchUtil.extractPlayerPosition(level));
 		Solution sol=bfs.search(adapter);
 		if(sol!=null)
 			System.out.println(sol);
 		else 
-			System.out.println("!NULL");
+			System.out.println("NULL");
 	}
-
 }
