@@ -2,9 +2,9 @@ package searchAlgoExtract;
 
 import java.util.List;
 
-import searching.SokobanState;
 
-public class State<T> implements Comparable<State<T>>{
+public class State<T> implements Comparable<State<T>>
+{
 	
 	private T state;
 	private double cost;
@@ -12,7 +12,8 @@ public class State<T> implements Comparable<State<T>>{
 	private Action action;
 	private List<Action> preActions;
 	
-	public State(T state, double cost) {
+	public State(T state, double cost)
+	{
 		this.state = state;
 		this.cost = cost;
 		this.action=null;
@@ -21,31 +22,37 @@ public class State<T> implements Comparable<State<T>>{
 
 	
 	
-	public List<Action> getPreActions() {
+	public List<Action> getPreActions()
+	{
 		return preActions;
 	}
 
 
 
-	public void setPreActions(List<Action> preActions) {
+	public void setPreActions(List<Action> preActions)
+	{
 		this.preActions = preActions;
 	}
 
 
 
-	public T getState() {
+	public T getState()
+	{
 		return state;
 	}
 
-	public void setState(T theState) {
+	public void setState(T theState)
+	{
 		this.state = theState;
 	}
 
-	public double getCost() {
+	public double getCost()
+	{
 		return cost;
 	}
 
-	public void setCost(double cost) {
+	public void setCost(double cost) 
+	{
 		this.cost = cost;
 	}
 

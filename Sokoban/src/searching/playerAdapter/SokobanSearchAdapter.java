@@ -8,7 +8,6 @@ import model.policy.CalculateMove;
 import searchAlgoExtract.Action;
 import searchAlgoExtract.Searchable;
 import searchAlgoExtract.State;
-import searching.SokobanState;
 import searching.search_util.SearchUtil;
 import sokoban_utils.SokoUtil;
 

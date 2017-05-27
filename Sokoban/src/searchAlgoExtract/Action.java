@@ -1,12 +1,14 @@
 package searchAlgoExtract;
 
-public class Action {
+public class Action 
+{
 	
 	private String action;
 	
 
 	
-	public Action(String action) {
+	public Action(String action) 
+	{
 		this.action = action;
 	}
 
@@ -14,12 +16,14 @@ public class Action {
 		return action;
 	}
 
-	public void setAction(String action) {
+	public void setAction(String action)
+	{
 		this.action = action;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		Action a=(Action)obj;
 		return action.equals(a.action);
 	}

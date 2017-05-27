@@ -1,4 +1,4 @@
-package searching;
+package searching.playerAdapter;
 import java.io.FileNotFoundException;
 
 import common_data.item.Position2D;
@@ -6,7 +6,6 @@ import common_data.level.Level;
 import searchAlgoExtract.BFS;
 import searchAlgoExtract.Searchable;
 import searchAlgoExtract.Solution;
-import searching.playerAdapter.SokobanSearchAdapter;
 import searching.search_util.SearchUtil;
 public class SearchTestRun 
 {

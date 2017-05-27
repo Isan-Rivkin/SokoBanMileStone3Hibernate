@@ -3,8 +3,6 @@ package searchAlgoExtract;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.PriorityQueue;
-
-import searching.SokobanState;
 import searching.search_util.SearchUtil;
 
 public class BFS<T> extends CommonSearcher<T>
@@ -50,10 +48,10 @@ public class BFS<T> extends CommonSearcher<T>
 			this.successors=s.getAllPossibleStates(currState);
 			for(Action a: this.successors.keySet())
 			{
+				State<T> n=this.successors.get(a);
 				
-				State<T>n=this.successors.get(a);
-				
-				if(!this.closeSet.contains(n)){
+				if(!this.closeSet.contains(n))
+				{
 					
 					if(!this.openList.contains(n))
 					{

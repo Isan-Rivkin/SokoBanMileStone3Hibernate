@@ -1,23 +1,24 @@
-package searching;
+package searching.boxAdapter;
 
-import org.hibernate.internal.log.UrlMessageBundle;
-
-import common_data.level.Level;
+import common_data.item.Position2D;
 import searching.search_util.SearchUtil;
 
-public class SokobanState 
+public class BoxState
 {
 	char[][] game_map;
-	//boxpos
-	public SokobanState(char[][] urMama) 
-	{
-		
+	Position2D boxPos,targetPos;
+	
+	public BoxState(char[][] urMama, Position2D boxPos, Position2D targetPos) 
+	{	
+		this.boxPos = boxPos;
+		this.targetPos = targetPos;
 		this.game_map = urMama;
 	}
 	
 	@Override
 	public String toString()
 	{
+
 		String str = "";
 		for (int i = 0; i < game_map.length; i++) 
 		{
@@ -39,9 +40,11 @@ public class SokobanState
 	@Override
 	public boolean equals(Object obj) 
 	{	
-		SokobanState state = (SokobanState)obj;
-		
-		
+		BoxState state = (BoxState)obj;
+		if(boxPos.equals(state.boxPos) && boxPos.equals(state.targetPos))
+		{	
+			return true;
+		}
 		for (int i = 0; i < game_map.length; i++) 
 		{
 			for (int j = 0; j < game_map[0].length; j++) 
@@ -59,4 +62,13 @@ public class SokobanState
 	{
 		return game_map;
 	}
+	public Position2D getBoxPos()
+	{
+		return boxPos;
+	}
+	public Position2D getDestPos()
+	{
+		return targetPos;
+	}
+	
 }

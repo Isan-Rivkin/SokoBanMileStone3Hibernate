@@ -1,8 +1,6 @@
 package searchAlgoExtract;
 
 import java.util.LinkedList;
-
-import searching.SokobanState;
 import searching.search_util.SearchUtil;
 
 public abstract class CommonSearcher<T> implements Searcher<T>
