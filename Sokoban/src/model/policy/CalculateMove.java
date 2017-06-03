@@ -6,7 +6,7 @@ import common_data.item.Item;
 import common_data.item.Movable;
 import common_data.item.Position2D;
 import common_data.level.Level;
-import searching.delete.SearchGoalState;
+
 import sokoban_utils.SokoUtil;
 /**
  * 
@@ -54,20 +54,20 @@ public class CalculateMove implements Imove{
 	}
 	public boolean isPossibleMovement(Level level,String direction)
 	{
-		if(util.isValidDirection(direction))
-		{
-			this.level=level;
-			SearchGoalState sgs = new SearchGoalState();
-			boolean canBeMoved=false;
-			source=level.getPlayerPosition(0); 
-			path=this.getPathToDestination(direction);
-			if(path != null)
-				canBeMoved=policy.allPathCanBeMoved(path);
-			if(canBeMoved)
-			{
-				return true;	
-			}
-		}
+//		if(util.isValidDirection(direction))
+//		{
+//			this.level=level;
+//			SearchGoalState sgs = new SearchGoalState();
+//			boolean canBeMoved=false;
+//			source=level.getPlayerPosition(0); 
+//			path=this.getPathToDestination(direction);
+//			if(path != null)
+//				canBeMoved=policy.allPathCanBeMoved(path);
+//			if(canBeMoved)
+//			{
+//				return true;	
+//			}
+//		}
 		return false;
 	}
 	/**
