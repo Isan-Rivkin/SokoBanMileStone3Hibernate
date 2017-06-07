@@ -6,7 +6,8 @@ import java.io.Serializable;
  * @author Daniel Hake & Isan Rivkin
  *
  */
-public abstract class CommonItems implements Item,Serializable{
+public abstract class CommonItems implements Item,Serializable
+{
 	//Consider adding strategy pattern atm all positions are 2d 
 	Position2D position;
 	public char id_char;
@@ -19,36 +20,43 @@ public abstract class CommonItems implements Item,Serializable{
 	 * 
 	 * @return x->Position[x][y] 
 	 */
-public int getPosX(){
+public int getPosX()
+{
 	return position.getX();
 }
 /**
  * 
  * @return y->Position[x][y] 
  */
-public int getPosY(){
+public int getPosY()
+{
 	return position.getY();
 }
 /**
  * 
  * @return item ID
  */
-public char getId_char() {
+public char getId_char() 
+{
 		return id_char;
 	}
+
 /**
  * 
  * @param id_char
  */
-	public void setId_char(char id_char) {
+	public void setId_char(char id_char) 
+	{
 		this.id_char = id_char;
 	}
 
-	public CommonItems() {
+	public CommonItems() 
+	{
 	//this.position=new Position2D();
 	}
 
-    public void print(){
+    public void print()
+    {
     	System.out.println(this.toString());
     }
     
@@ -71,7 +79,8 @@ public char getId_char() {
      * 
      * @param pos
      */
-	public void setPosition(Position pos) {
+	public void setPosition(Position pos) 
+	{
 		this.position = (Position2D)pos;
 	}
 	@Override
