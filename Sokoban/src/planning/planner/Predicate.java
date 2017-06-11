@@ -11,13 +11,7 @@ public class Predicate
 	}
 	public boolean satisfies(Predicate pr)
 	{
-//		System.out.println("-------");
-//		System.out.println("comparing: " + this.toString());
-//		System.out.println("to " + pr.toString());
-//		System.out.println((type.equals(pr.type) && id.equals(pr.id)) || (pr.id.equals("?") && value.equals(pr.value)));
-//		System.out.println("-------");
 		return (type.equals(pr.type) && (id.equals(pr.id) || pr.id.equals("?")) && value.equals(pr.value));
-//		return (type.equals(pr.type) && id.equals(pr.id)) || (pr.id.equals("?") && value.equals(pr.value));
 	}
 	public boolean contradicts(Predicate pr)
 	{

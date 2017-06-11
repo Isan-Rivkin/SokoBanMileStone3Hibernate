@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import common_data.item.Position2D;
 import common_data.item.Target;
 import plannable.Goal;
@@ -41,7 +43,7 @@ public class SokoHeuristics
 		planUtil = new PlanUtil();
 		goals = new LinkedList<>();
 	}
-	public List<Clause> generateGoalList(char [][] level)
+	public List<Clause> generateGoalsList(char [][] level)
 	{
 		ArrayList<Position2D> targets = new ArrayList<>();
 		ArrayList<Position2D> afterEffectTargets = new ArrayList<>();
@@ -92,25 +94,30 @@ public class SokoHeuristics
 		}	
 		return goals;
 	}
-	public Clause generateGoal(ArrayList<Position2D> targetsPos)
+	private Clause generateGoal(ArrayList<Position2D> targetsPos)
 	{
-		Clause c = new Clause(null);	
-		for(Position2D pos : targetsPos)
+		Clause c = new Clause(null);
+		//for(Position2D pos : targetsPos)
+		for(int i=targetsPos.size()-1;i>=0;i--)
 		{
-			c.add(new Predicate("BoxAt", "?", pos.toString()));
+			c.add(new Predicate("BoxAt", "?", targetsPos.get(i).toString()));
+			//c.add(new Predicate("BoxAt", "?", pos.toString()));
 		}
 		return c;
 	}
 	public Clause gettGoal(Clause kb, int attempt)
 	{
-		Clause goal = new Clause(null);
-		for(Predicate p : kb.getPredicates())
-		{
-			if(p.getType().startsWith("Tar"))
-			{
-				goal.add(new Predicate("BoxAt", "?", p.getValue()));
-			}
-		}
-		return goal;
+		// generate the goal from the 'attempt' index
+		return goals.get(attempt);
+//		Clause goal = new Clause(null);
+//		
+//		for(Predicate p : kb.getPredicates())
+//		{
+//			if(p.getType().startsWith("Tar"))
+//			{
+//				goal.add(new Predicate("BoxAt", "?", p.getValue()));
+//			}
+//		}
+//		return goal;
 	}
 }

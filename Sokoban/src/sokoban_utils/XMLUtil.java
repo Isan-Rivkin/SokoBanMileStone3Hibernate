@@ -24,7 +24,8 @@ public class XMLUtil {
 		
 	}
 	
-	public static void encodeXML(Object obj, OutputStream out) throws FileNotFoundException{
+	public static void encodeXML(Object obj, OutputStream out) throws FileNotFoundException
+	{
 		XMLEncoder e=new XMLEncoder(new BufferedOutputStream(out));
 		e.writeObject(obj);
 		e.close();

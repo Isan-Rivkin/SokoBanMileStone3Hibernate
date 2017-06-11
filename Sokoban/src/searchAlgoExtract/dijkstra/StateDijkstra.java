@@ -1,21 +1,19 @@
-package searchAlgoExtract;
+package searchAlgoExtract.dijkstra;
 
 import java.util.List;
 
-import searching.boxAdapter.BoxState;
-import searching.search_util.SearchUtil;
+import searchAlgoExtract.Action;
+import searchAlgoExtract.State;
 
-
-public class State<T> implements Comparable<State<T>>
+public class StateDijkstra<T> 
 {
-	
 	private T state;
 	private double cost;
 	private State<T> cameFrom;
 	private Action action;
 	private List<Action> preActions;
 	
-	public State(T state, double cost)
+	public StateDijkstra(T state, double cost)
 	{
 		this.state = state;
 		this.cost = cost;
@@ -91,14 +89,14 @@ public class State<T> implements Comparable<State<T>>
 	{
 		return state.hashCode();
 	}
-
-	@Override
-	public int compareTo(State<T> s)
-	{
-		return (int) (this.cost-s.cost);
-	}
-	
-	
+//
+//	@Override
+//	public int compareTo(State<T> s)
+//	{
+//		return (int) (this.cost-s.cost);
+//	}
+//	
+//	
 	
 
 }

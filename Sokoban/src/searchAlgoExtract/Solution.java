@@ -1,13 +1,15 @@
 package searchAlgoExtract;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import searching.search_util.SearchUtil;
 
-public class Solution {
+public class Solution implements Serializable {
 	
 	private LinkedList<Action> theSolution;
 	
+	public Solution(){}
 	public Solution(LinkedList<Action> theSolution) {
 		this.theSolution = theSolution;
 	}

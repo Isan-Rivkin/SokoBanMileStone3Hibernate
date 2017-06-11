@@ -49,13 +49,13 @@ public class BoxState
 		{
 			for (int j = 0; j < game_map[0].length; j++) 
 			{
+
 				if (game_map[i][j] != state.game_map[i][j])
 				{
 					return false;
 				}
 			}			
 		}
-		
 		return true;
 	}
 	public char[][] getMap()

@@ -20,6 +20,8 @@ public class PlannableCreator
 	private PlannableContainerCreator container;
 	private HashMap<String,String> boxes_ids;
 	private FinalSolution finalSolution;
+	private SokoHeuristics heuristics;
+	private int attempt;
 	
 	public class PlannableContainerCreator
 	{
@@ -27,9 +29,11 @@ public class PlannableCreator
 		public char[][] level;
 		public HashMap<String,String> boxes_ids;
 		public FinalSolution finalSoltuin;
+
 		public PlannableContainerCreator(){}
 		public PlannableContainerCreator(Clause kb, Clause goal, char [][] level, HashMap<String,String> boxes_ids,FinalSolution finalSolution) 
 		{
+			
 			this.finalSoltuin = finalSolution;
 			this.kb=kb;
 			this.goal=goal;
@@ -37,15 +41,16 @@ public class PlannableCreator
 			this.boxes_ids=boxes_ids;
 		}
 	}
-	public PlannableCreator(FinalSolution finalSoltuion) 
+	public PlannableCreator(FinalSolution finalSoltuion,SokoHeuristics heuristics,int attempt) 
 	{
+		this.attempt=attempt;
+		this.heuristics=heuristics;
 		this.finalSolution=finalSoltuion;
 		boxes_ids = new HashMap<>();
 	}
-	public static Clause getGoal(Clause kb)
+	public Clause getGoal(Clause kb)
 	{
-		SokoHeuristics heuristics = new SokoHeuristics();
-		return heuristics.gettGoal(kb, 0);
+		return heuristics.gettGoal(kb, this.attempt);
 //		Clause goal = new Clause(null);
 //		//for(Predicate p : kb.getPredicates())
 //		for(Predicate p : A.getPredicates(kb,i))

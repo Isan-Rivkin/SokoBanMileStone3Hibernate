@@ -34,13 +34,15 @@ public class SokobanPlannable implements Plannable
 	@Override
 	public Action getSatisfyingAction(Predicate top) 
 	{
-		
 		PlanUtil util = new PlanUtil();
 		Position2D boxDestination = PlanUtil.posFromStr(top.getValue());
+		Position2D playerPos = SearchUtil.extractCharPlayerPosition(level);
 		SearchContainer container = util.attachBoxToTargetSolution(level, boxDestination, null);
+		if(container == null)
+		{
+			return null;
+		}
 		finalSolution.solutions_compilation.add(container.solution);
-		 // we are only accepting the predicate Predicate("BoxAt","?","1,4") 
-
 		Action action = new MoveAction(boxes_id.get(container.boxPos.toString()), container.boxPos.toString(), container.targetPos.toString());
 		level = PlanUtil.generateNextState(container);
 		return action;

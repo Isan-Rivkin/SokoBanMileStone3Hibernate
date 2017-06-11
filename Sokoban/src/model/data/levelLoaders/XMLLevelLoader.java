@@ -36,10 +36,14 @@ public class XMLLevelLoader implements ILevelLoader {
 	 * @param level
 	 */
 	@Override
-	public void save(OutputStream out, Level level) {
-		try {
+	public void save(OutputStream out, Level level)
+	{
+		try
+		{
 			XMLUtil.encodeXML(level, out);
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) 
+		{
 			System.out.println(e.toString());
 			e.printStackTrace();
 		}

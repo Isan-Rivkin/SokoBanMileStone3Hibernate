@@ -1,36 +1,30 @@
 package solver;
 
-import java.io.FileNotFoundException;
-import java.util.List;
-
-import common_data.level.Level;
 import planning.plannable.SokoHeuristics;
-import planning.planner.Clause;
-import searching.search_util.SearchUtil;
 
 public class RunSolver 
 {
 	public static void main(String[] args) 
 	{
-//		SokobanSolver solver = new SokobanSolver();
-//		solver.defineLevelPath("./myLevels/search1.txt", "./LevelSolutions/solution.txt");
-//		solver.loadLevel();
-//		solver.solve();
-		SokoHeuristics h = new SokoHeuristics();
-		try 
+		String levelPath="";
+		String solutionPath="";
+		if(args.length ==2)
 		{
-			Level l = SearchUtil.loadLevel("./myLevels/search2.txt");
-			SearchUtil.printCharLevel(l.getCharGameBoard());
-			List<Clause> goals =  h.generateGoalList(l.getCharGameBoard());
-			for(Clause c : goals)
-			{
-				System.out.println(c);
-			}
+			levelPath=args[0];
+			solutionPath=args[1];
 		}
-		catch (FileNotFoundException e)
+		else
 		{
-			e.printStackTrace();
+			levelPath="./levels/level1.txt";
+			solutionPath="./LevelSolutions/level1.txt";
 		}
+		SokoHeuristics heuristics = new SokoHeuristics();
+		MainSolver solver = new MainSolver(heuristics);
+		solver.defineLevelPath(levelPath,solutionPath );
+		solver.loadLevel();
+		solver.asyncSolve();
+		solver.saveSolution();
+			
 	}
 
 }

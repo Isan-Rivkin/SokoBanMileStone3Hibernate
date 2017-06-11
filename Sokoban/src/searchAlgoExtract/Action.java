@@ -1,12 +1,14 @@
 package searchAlgoExtract;
 
-public class Action 
+import java.io.Serializable;
+
+public class Action implements Serializable
 {
 	
 	private String action;
-	
 
 	
+	public Action(){}
 	public Action(String action) 
 	{
 		this.action = action;

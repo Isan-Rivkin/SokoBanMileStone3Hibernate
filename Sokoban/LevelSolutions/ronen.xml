@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_111" class="java.beans.XMLDecoder">
+ <object class="searchAlgoExtract.Solution">
+  <void property="theSolution">
+   <object class="java.util.LinkedList">
+    <void method="add">
+     <object class="searchAlgoExtract.Action">
+      <void property="action">
+       <string>move right
+move right</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="searchAlgoExtract.Action">
+      <void property="action">
+       <string>move right</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

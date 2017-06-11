@@ -12,7 +12,7 @@ import searching.search_util.SearchUtil;
 
 public class RunBoxSearch
 {
-	static String path = "./levels/level1.txt";
+	static String path = "./levels/level2.txt";
 
 	public static void main(String[] args) throws FileNotFoundException 
 	{

@@ -1,16 +1,26 @@
 package solver;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import common_data.level.Level;
 import model.data.levelLoaders.FactoryLevelLoader;
 import model.data.levelLoaders.ILevelLoader;
+import model.data.solutionLoaders.FactorySolutionHandler;
+import model.data.solutionLoaders.ISolutionHandler;
+import model.data.solutionLoaders.TxtSolutionHandler;
 import planning.plannable.PlanUtil;
 import planning.plannable.Plannable;
 import planning.plannable.PlannableCreator;
+import planning.plannable.SokoHeuristics;
 import planning.planner.Action;
 import planning.planner.Planner;
 import planning.planner.Strips;
@@ -18,7 +28,7 @@ import searchAlgoExtract.Solution;
 import searching.search_util.SearchUtil;
 import sokoban_utils.SokoUtil;
 
-public class SokobanSolver implements ISolver
+public class SokobanSolver extends Thread implements ISolver
 {
 	private String in;
 	private String out;
@@ -27,63 +37,48 @@ public class SokobanSolver implements ISolver
 	private Level level;
 	private SokoUtil sokoUtil;
 	private FinalSolution finalSolution;
-	public SokobanSolver() 
-	{
-		sokoUtil = new SokoUtil();
-		finalSolution = new FinalSolution();
-	}
+	private SokoHeuristics heuristics;
+	private int attemptNum;
+	private boolean solved;
 	
-	@Override
-	public Solution solveLevel(Level l) 
+	public SokobanSolver(FinalSolution finalSolution, SokoHeuristics heuristics, int attemp,Level level) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		this.level=level;
+		this.attemptNum=attemp;
+		this.solved=false;
+		this.heuristics = heuristics;
+		sokoUtil = new SokoUtil();
+		this.finalSolution = finalSolution;
+	}
+	@Override
+	public void run() 
+	{
+		this.solve();
 	}
 
-	@Override
-	public void defineLevelPath(String in, String out) 
-	{
-		this.in=in;
-		this.out=out;
-		factory_loader =new FactoryLevelLoader();
-		if(!(sokoUtil.isValidFileType(sokoUtil.extractFileType(in)) && sokoUtil.isFileExist(in)))
-		{
-			System.out.println("INVALID FILE TYPE OR FILE DOESNT EXIST");
-		}
-		levelHandler = factory_loader.getLevelLoader(in);
-	}
-	public void loadLevel()
-	{
-		try 
-		{
-			InputStream inS = new FileInputStream(in);
-			this.level=levelHandler.load(inS);
-			if(level == null)
-			{
-				throw new FileNotFoundException();
-			}
-		}
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
-	}
 	public boolean solve()
 	{
-		for(int i=0;i<level.getTargets().size()+1;++i)
-		{
-			PlannableCreator creator = new PlannableCreator(finalSolution);
+			PlannableCreator creator = new PlannableCreator(finalSolution,heuristics,attemptNum);
 			Plannable adapter = creator.createPlannable(level.getCharGameBoard());
 			Planner strips = new Strips();
 			List<Action> plans = strips.plan(adapter);
-			for(Solution sol : finalSolution.solutions_compilation)
-			{
-				System.out.println(sol);
-			}
+			if(plans == null)
+				System.err.println("plan is null");
 			if(plans != null)
-				break;
-		}
+			{	
+				this.solved=true;
+				return true;
+			}
+			this.solved=false;
 		return false;
 	}
-
+	public boolean isSolved()
+	{
+		return solved;
+	}
+	public FinalSolution getFinalSolution()
+	{
+		return finalSolution;
+	}
+	
 }

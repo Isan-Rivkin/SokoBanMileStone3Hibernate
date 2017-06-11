@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import common_data.item.Box;
 import common_data.item.Floor;
 import common_data.item.Player;
@@ -77,11 +79,11 @@ public class PlanUtil
 	
 	public SearchContainer attachBoxToTargetSolution(char[][] level, Position2D targetPos, ArrayList<Position2D> excludePoses)
 	{
-	
+
 		ArrayList<Position2D> boxes = new ArrayList<>();
 		BoxComparator bc = new BoxComparator(targetPos);
 		PriorityQueue<Position2D> queue = new PriorityQueue<>(bc);
-		SearchUtil.printCharLevel(level);
+		
 		for(int i=0;i<level.length;++i)
 		{
 			for(int j=0;j<level[0].length;++j)
@@ -111,7 +113,7 @@ public class PlanUtil
 			{
 				Position2D source = queue.poll();
 				Searchable<BoxState> adapter = new BoxSearchAdapter(level, source, targetPos);
-				Searcher<BoxState> searcher = new BFS<BoxState>();
+				Searcher<BoxState> searcher = new BFS<BoxState>();;
 				Solution sol = searcher.search(adapter);
 				if(sol == null)
 				{

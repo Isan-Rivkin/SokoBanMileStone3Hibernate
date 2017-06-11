@@ -35,7 +35,8 @@ public class Strips implements Planner
 						Clause c = (Clause)top;
 						// move now
 						//stack.pop();
-						for(Predicate p: c.predicates)
+						//for(Predicate p: c.predicates)
+						for(Predicate p: c.getOrderdPredicates())
 						{
 							stack.push(p);
 						}
@@ -45,6 +46,8 @@ public class Strips implements Planner
 						stack.pop();
 						Action action = plannable.getSatisfyingAction(top);
 						stack.push(action);
+						if(action == null)
+							return null;
 						stack.push(action.preConditions);
 					}
 				}
