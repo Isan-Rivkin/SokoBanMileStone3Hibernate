@@ -3,9 +3,9 @@ import java.io.FileNotFoundException;
 
 import common_data.item.Position2D;
 import common_data.level.Level;
-import searchAlgoExtract.BFS;
-import searchAlgoExtract.Searchable;
-import searchAlgoExtract.Solution;
+import searchable.Searchable;
+import searchable.Solution;
+import searcher.BFS;
 import searching.search_util.SearchUtil;
 public class SearchTestRun 
 {

@@ -1,9 +1,8 @@
 package solver;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
-import searchAlgoExtract.Solution;
+import searchable.Solution;
 
 public class FinalSolution 
 {

@@ -15,9 +15,8 @@ import model.data.levelLoaders.ILevelLoader;
 import model.data.solutionLoaders.FactorySolutionHandler;
 import model.data.solutionLoaders.ISolutionHandler;
 import planning.plannable.SokoHeuristics;
-import searchAlgoExtract.Action;
-import searchAlgoExtract.Solution;
-import searching.search_util.SearchUtil;
+import searchable.Action;
+import searchable.Solution;
 import sokoban_utils.SokoUtil;
 
 public class MainSolver
@@ -50,8 +49,9 @@ public class MainSolver
 	}
 	public SokobanSolver asyncSolve()
 	{
-		this.heuristics.generateGoalsList(level.getCharGameBoard());	
-		for(int attempt=0;attempt<level.getTargets().size();++attempt)
+		int numOfItterations = level.getTargets().size()+1;
+		this.heuristics.generateGoalsList(level.getCharGameBoard(),numOfItterations);	
+		for(int attempt=0;attempt<numOfItterations;++attempt)
 		{
 			solvers.add(new SokobanSolver(new FinalSolution(),heuristics,attempt,level));
 			solvers.get(attempt).start();
@@ -92,7 +92,7 @@ public class MainSolver
 		return actualSolver;
 	}
 	
-	public void saveSolution()
+	public Solution saveSolution()
 	{
 		FactorySolutionHandler factory = new FactorySolutionHandler();
 		ISolutionHandler handler = factory.getLevelLoader(out);
@@ -101,12 +101,12 @@ public class MainSolver
 		{
 			if(this.actualSolver == null)
 			{
-				return;
+				return null;
 			}
 				
 			o = new FileOutputStream(new File(out));
 
-			LinkedList<searchAlgoExtract.Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
+			LinkedList<Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
 			Solution finalFinalSolution = new Solution(actions);
 			handler.save(o, finalFinalSolution);
 		} 
@@ -114,17 +114,18 @@ public class MainSolver
 		{
 			e.printStackTrace();
 		}
-		LinkedList<searchAlgoExtract.Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
+		LinkedList<Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
 		for(Action a: actions)
 			System.out.println(a.getAction());
+		return new Solution(actions);
 	}
-	private LinkedList<searchAlgoExtract.Action> generateFullSolution(LinkedList<Solution> solutions_compilation)
+	private LinkedList<Action> generateFullSolution(LinkedList<Solution> solutions_compilation)
 	{
-		LinkedList<searchAlgoExtract.Action> actions = new LinkedList<>();
+		LinkedList<Action> actions = new LinkedList<>();
 
 		for(Solution s :solutions_compilation)
 		{
-			for(searchAlgoExtract.Action a : s.getTheSolution())
+			for(Action a : s.getTheSolution())
 			{
 				actions.add(a);
 			}

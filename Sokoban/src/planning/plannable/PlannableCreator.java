@@ -10,8 +10,8 @@ import common_data.item.PlayerOnTarget;
 import common_data.item.Position2D;
 import common_data.item.Target;
 import common_data.item.Wall;
-import planning.planner.Clause;
-import planning.planner.Predicate;
+import plannerP.Clause;
+import plannerP.Predicate;
 import solver.FinalSolution;
 
 public class PlannableCreator 

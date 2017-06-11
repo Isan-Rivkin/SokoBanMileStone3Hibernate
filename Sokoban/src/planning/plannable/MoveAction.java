@@ -1,8 +1,8 @@
 package planning.plannable;
 
-import planning.planner.Action;
-import planning.planner.Clause;
-import planning.planner.Predicate;
+import plannerP.Action;
+import plannerP.Clause;
+import plannerP.Predicate;
 
 public class MoveAction extends Action 
 {

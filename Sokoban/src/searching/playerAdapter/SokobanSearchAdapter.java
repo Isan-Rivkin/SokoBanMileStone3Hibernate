@@ -5,9 +5,9 @@ import java.util.HashMap;
 import common_data.item.Position2D;
 import common_data.level.Level;
 import model.policy.CalculateMove;
-import searchAlgoExtract.Action;
-import searchAlgoExtract.Searchable;
-import searchAlgoExtract.State;
+import searchable.Action;
+import searchable.Searchable;
+import searchable.State;
 import searching.search_util.SearchUtil;
 import sokoban_utils.SokoUtil;
 

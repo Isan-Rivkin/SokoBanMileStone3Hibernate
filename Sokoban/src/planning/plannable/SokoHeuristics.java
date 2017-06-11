@@ -5,14 +5,12 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+import java.util.Random;
 
 import common_data.item.Position2D;
 import common_data.item.Target;
-import plannable.Goal;
-import planning.planner.Clause;
-import planning.planner.Predicate;
+import plannerP.Clause;
+import plannerP.Predicate;
 import searching.search_util.SearchUtil;
 
 public class SokoHeuristics 
@@ -43,7 +41,7 @@ public class SokoHeuristics
 		planUtil = new PlanUtil();
 		goals = new LinkedList<>();
 	}
-	public List<Clause> generateGoalsList(char [][] level)
+	public List<Clause> generateGoalsList(char [][] level, int itterations)
 	{
 		ArrayList<Position2D> targets = new ArrayList<>();
 		ArrayList<Position2D> afterEffectTargets = new ArrayList<>();
@@ -73,7 +71,7 @@ public class SokoHeuristics
 		}
 		int siduration = 0;
 		int offSet=0;
-		for (;siduration<afterEffectTargets.size();siduration++)
+		for (;siduration<1;siduration++)
 		{
 			ArrayList<Position2D> list = new ArrayList<>();
 			offSet = siduration;
@@ -91,8 +89,42 @@ public class SokoHeuristics
 				count++;
 			}
 			goals.add(generateGoal(list));	
-		}	
+		}
+		for(int i=0;i<itterations;++i)
+		{
+			Position2D[] ordered = generateRandomSiduration(afterEffectTargets);
+			goals.add(generateGoal(ordered));
+		}
 		return goals;
+	}
+	private Clause generateGoal(Position2D[] ordered) 
+	{
+		ArrayList<Position2D> orderdList = new ArrayList<>();
+		for(int i=0;i<ordered.length;++i)
+		{
+			orderdList.add(ordered[i]);
+		}
+		return generateGoal(orderdList);
+	}
+	private Position2D[] generateRandomSiduration(ArrayList<Position2D> afterEffectTargets) 
+	{
+		Position2D [] orderd = new Position2D[afterEffectTargets.size()];
+		int range = orderd.length;
+		Random randomGenerator = new Random();
+		for(Position2D pos : afterEffectTargets)
+		{
+			boolean goodAsama = false;
+			while(!goodAsama)
+			{
+				int indx = randomGenerator.nextInt(range);
+				if(orderd[indx]== null)
+				{
+					orderd[indx] = pos;
+					goodAsama= true;
+				}	
+			}
+		}
+		return orderd;
 	}
 	private Clause generateGoal(ArrayList<Position2D> targetsPos)
 	{
@@ -101,23 +133,11 @@ public class SokoHeuristics
 		for(int i=targetsPos.size()-1;i>=0;i--)
 		{
 			c.add(new Predicate("BoxAt", "?", targetsPos.get(i).toString()));
-			//c.add(new Predicate("BoxAt", "?", pos.toString()));
 		}
 		return c;
 	}
 	public Clause gettGoal(Clause kb, int attempt)
 	{
-		// generate the goal from the 'attempt' index
 		return goals.get(attempt);
-//		Clause goal = new Clause(null);
-//		
-//		for(Predicate p : kb.getPredicates())
-//		{
-//			if(p.getType().startsWith("Tar"))
-//			{
-//				goal.add(new Predicate("BoxAt", "?", p.getValue()));
-//			}
-//		}
-//		return goal;
 	}
 }

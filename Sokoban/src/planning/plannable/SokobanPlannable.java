@@ -1,15 +1,14 @@
 package planning.plannable;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import common_data.item.Position2D;
+import plannableP.Plannable;
+import plannerP.Action;
+import plannerP.Clause;
+import plannerP.Predicate;
 import planning.plannable.PlanUtil.SearchContainer;
 import planning.plannable.PlannableCreator.PlannableContainerCreator;
-import planning.planner.Action;
-import planning.planner.Clause;
-import planning.planner.Predicate;
-import searchAlgoExtract.Solution;
 import searching.search_util.SearchUtil;
 import solver.FinalSolution;
 

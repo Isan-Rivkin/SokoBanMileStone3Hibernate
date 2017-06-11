@@ -1,5 +1,6 @@
 package view;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import model.database.HighScoreP;
@@ -19,5 +20,6 @@ public interface FView {
 	public int getPort();
 	//highscore
 	public void updateHighScoreTable(List<HighScoreP> list);
+	public void executeSolution(LinkedList<String> solution);
 	
 }

@@ -22,17 +22,16 @@ public class SokoDisplayer extends Canvas{
 	private StringProperty temp;
 	private GraphicsContext gc;
 	
-	public SokoDisplayer() {
+	public SokoDisplayer() 
+	{
 		gc=getGraphicsContext2D();
 		map_statics=null;
 		map_movables=null;
 		map=null;
 		resources=null;
-		
-
 	}
-	
-	public Resources getResources() {
+	public Resources getResources() 
+	{
 		return resources;
 	}
 

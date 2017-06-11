@@ -2,12 +2,9 @@ package planning.plannable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import common_data.item.Box;
 import common_data.item.Floor;
@@ -15,11 +12,11 @@ import common_data.item.Player;
 import common_data.item.PlayerOnTarget;
 import common_data.item.Position2D;
 import common_data.item.Target;
-import planning.plannable.PlanUtil.SearchContainer;
-import searchAlgoExtract.BFS;
-import searchAlgoExtract.Searchable;
-import searchAlgoExtract.Searcher;
-import searchAlgoExtract.Solution;
+import searchable.Action;
+import searchable.Searchable;
+import searchable.Solution;
+import searcher.BFS;
+import searcher.Searcher;
 import searching.boxAdapter.BoxSearchAdapter;
 import searching.boxAdapter.BoxState;
 import searching.search_util.SearchUtil;
@@ -135,7 +132,7 @@ public class PlanUtil
 		
 		Position2D targetPos = container.targetPos;
 		char [][] newLevel = SearchUtil.duplicateMap(container.level);
-		LinkedList<searchAlgoExtract.Action> actions = container.solution.getTheSolution();
+		LinkedList<Action> actions = container.solution.getTheSolution();
 		int lastindex = actions.getLast().getAction().lastIndexOf("move");
 		String lastMove = actions.getLast().getAction().substring(lastindex, actions.getLast().getAction().length());
 		Position2D playerPos = SearchUtil.extractCharPlayerPosition(newLevel);

@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import common_data.item.Box;
 import common_data.item.BoxOnTarget;
 import common_data.item.Floor;
@@ -18,10 +16,10 @@ import common_data.item.Target;
 import common_data.level.Level;
 import model.data.levelLoaders.FactoryLevelLoader;
 import model.data.levelLoaders.ILevelLoader;
-import searchAlgoExtract.Action;
-import searchAlgoExtract.BFS;
-import searchAlgoExtract.Searchable;
-import searchAlgoExtract.Solution;
+import searchable.Action;
+import searchable.Searchable;
+import searchable.Solution;
+import searcher.BFS;
 import searching.playerAdapter.SokobanSearchAdapter;
 import searching.playerAdapter.SokobanState;
 import sokoban_utils.SokoUtil;
@@ -570,6 +568,22 @@ public class SearchUtil
 		
 		
 		return a;
+	}
+	public List<String> parseSolution(Solution solution)
+	{
+		List<String> actions = new LinkedList<>();
+		List<Action> sol_actions = solution.getTheSolution();
+		for(Action a : sol_actions)
+		{
+			String ac = a.getAction();
+			int idx=0;
+			while((idx=ac.lastIndexOf("move"))!=-1)
+			{
+				actions.add(ac.substring(idx));
+				ac = ac.substring(0, idx);
+			}
+		}
+		return actions;
 	}
 }
 

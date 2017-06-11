@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +21,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -76,8 +78,11 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	private HighScoreView hs_view;
 	@FXML
 	private Button button1;
-
-	public void MyView() {
+	@FXML
+	private Button solveButton;
+	
+	public void MyView() 
+	{
 		stage =null;
 		setFocus();
 	}
@@ -172,12 +177,14 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	}
 
 	@Override
-	public void redraw(char[][] map_static, char[][] map_movables,int steps) {
+	public void redraw(char[][] map_static, char[][] map_movables,int steps) 
+	{
 		this.steps=steps;
 		if(sokoDisplayer != null){
 			sokoDisplayer.updateMap(map_static, map_movables);
 			 int temp=0;
-			 if (steps!=0 && temp==0){
+			 if (steps!=0 && temp==0)
+			 {
 			 	startTimer();	
 			 	temp=steps;
 			 }
@@ -335,15 +342,47 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	{
 		this.displayAlert("Soko-Ban and the missing Ack\nDevelopers:\nIsan Rivkin & Daniel Hake.\nMusic:\nDaniel Hake & Isan Rivkin.");		
 	}
+	// ask to solve
+	public void onSolveButton()
+	{
+//		LinkedList<String> params=new LinkedList<String>();	
+//		setChanged();
+//		params.add("solvecurrent");
+//		notifyObservers(params);
+	}
+	//display solution
+	@Override
+	public void executeSolution(LinkedList<String> solution) 
+	{
+//		this.onResetButton();
+//		for(String move : solution)
+//		{
+//			LinkedList<String> cmd = interpeterMove.interperate(move);
+//			cmd.add(move);
+//			setChanged();
+//			notifyObservers(cmd);
+//			try 
+//			{
+//				Thread.sleep(500);
+//			}
+//			catch (InterruptedException e) 
+//			{
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		
+	}
 	public void onExit()
 	{
 		this.gameAlive=false;
 		LinkedList<String> params=new LinkedList<String>();	
 		params.add("exit");
 		int oNum=countObservers();
-		if(oNum>0){
-		setChanged();
-		notifyObservers(params);
+		if(oNum>0)
+		{
+			setChanged();
+			notifyObservers(params);
 		}
 		Platform.exit();
 		System.exit(0);
@@ -366,9 +405,12 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		if(!result.isPresent())
 			{
 			onExit();
-			}else{
+			}
+		else
+		{
 		String res=result.get();
-		switch(res){
+		switch(res)
+		{
 			case"Male":
 				img_resources.setPlayerFileName(img_resources.getPlayerFileName());
 				break;
@@ -382,9 +424,11 @@ public class MyView extends Observable implements FView,Initializable,Observer
 				break;
 		}
 		//user press x 
-		dialog.setOnCloseRequest(new EventHandler<DialogEvent>() {
+		dialog.setOnCloseRequest(new EventHandler<DialogEvent>()
+		{
 			@Override
-			public void handle(DialogEvent event) {
+			public void handle(DialogEvent event) 
+			{
 			}
 		});
 		img_resources.reloadResources();
@@ -505,8 +549,9 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			dialog_stack.pop().close();
 		}
 		dialog_stack.push(topDialog);
-		
 	}
+
+	
 	
 
 }

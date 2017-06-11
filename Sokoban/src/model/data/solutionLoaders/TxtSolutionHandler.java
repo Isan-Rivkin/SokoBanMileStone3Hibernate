@@ -6,22 +6,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-import common_data.item.Box;
-import common_data.item.BoxOnTarget;
-import common_data.item.Item;
-import common_data.item.Movable;
-import common_data.item.Player;
-import common_data.item.PlayerOnTarget;
-import common_data.item.Target;
-import common_data.item.Wall;
-import model.data.itemGeneratos.FactoryItemLoader;
-import model.policy.PolicyLevelStructure;
-import model.policy.SokobanPolicy;
-import searchAlgoExtract.Action;
-import searchAlgoExtract.Solution;
+import searchable.Action;
+import searchable.Solution;
 
 public class TxtSolutionHandler implements ISolutionHandler
 {

@@ -2,14 +2,13 @@ package searching.boxAdapter;
 
 import java.util.HashMap;
 
-import common_data.item.Box;
-import common_data.item.PlayerOnTarget;
 import common_data.item.Position2D;
-import searchAlgoExtract.Action;
-import searchAlgoExtract.Searchable;
-import searchAlgoExtract.Solution;
-import searchAlgoExtract.State;
+import searchable.Action;
+import searchable.Searchable;
+import searchable.Solution;
+import searchable.State;
 import searching.search_util.SearchUtil;
+
 
 public class BoxSearchAdapter implements Searchable<BoxState>
 {

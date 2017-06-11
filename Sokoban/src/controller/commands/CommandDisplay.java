@@ -48,8 +48,10 @@ public class CommandDisplay implements Command {
 		this.params=new LinkedList<String>();
 	}
 	@Override
-	public void execute() {
-	if(this.valid){
+	public void execute()
+	{
+	if(this.valid)
+	{
 		extractMovablesStaticCharMap();
 		view.redraw(map_static, map_movables,model.getPlayerSteps(0));
 		if(server!=null && server.hasClient()){

@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 
 import common_data.item.Position2D;
 import common_data.level.Level;
-import searchAlgoExtract.BFS;
-import searchAlgoExtract.Searchable;
-import searchAlgoExtract.Searcher;
-import searchAlgoExtract.Solution;
+import searchable.Searchable;
+import searchable.Solution;
+import searcher.BFS;
+import searcher.Searcher;
 import searching.search_util.SearchUtil;
 
 public class RunBoxSearch

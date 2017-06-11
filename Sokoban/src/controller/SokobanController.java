@@ -22,6 +22,8 @@ import controller.commands.CommandMove;
 import controller.commands.CommandReset;
 import controller.commands.CommandSignUp;
 import controller.commands.CommandWinningAlert;
+import controller.commands.ExecuteSolutionCommand;
+import controller.commands.SolveCurrentCommand;
 import controller.general_controller.GeneralController;
 import controller.server.CLIHandler;
 import controller.server.SokoServer;
@@ -74,10 +76,14 @@ public class SokobanController implements FController,Observer {
 		this.create_cmd.put("displayhs", new CommandDisplayHS(model,view));
 		this.create_cmd.put("winalert", new CommandWinningAlert(view));
 		this.create_cmd.put("insertleveltodb", new CommandInseretLevelDB(model));
-		
+		//solution commands
+		this.create_cmd.put("solvecurrent", new SolveCurrentCommand(model, view));
+		this.create_cmd.put("executesolution", new ExecuteSolutionCommand(model, view));
+
 	}
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) 
+	{
 		LinkedList<String> params = (LinkedList<String>) arg;
 		String commandKey = params.removeFirst();
 		Command c = create_cmd.get(commandKey);

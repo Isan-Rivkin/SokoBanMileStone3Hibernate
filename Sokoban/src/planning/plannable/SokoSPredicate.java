@@ -1,6 +1,6 @@
 package planning.plannable;
 
-import planning.planner.Predicate;
+import plannerP.Predicate;
 
 public class SokoSPredicate extends Predicate
 {

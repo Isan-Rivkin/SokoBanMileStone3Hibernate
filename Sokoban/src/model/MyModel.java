@@ -9,18 +9,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import common_data.level.Level;
 import model.data.levelLoaders.FactoryLevelLoader;
 import model.data.levelLoaders.ILevelLoader;
 import model.database.HighScoreP;
 import model.database.IDBMapper;
-import model.database.LevelP;
 import model.database.POJO;
 import model.database.SokoDBMapper;
 import model.policy.CalculateMove;
 import model.policy.Imove;
 import model.policy.Policy;
+import planning.plannable.SokoHeuristics;
+import searchable.Action;
+import searchable.Solution;
 import sokoban_utils.SokoUtil;
+import solver.MainSolver;
 
 public class MyModel extends Observable implements FModel,Observer
 {
@@ -38,7 +42,8 @@ public class MyModel extends Observable implements FModel,Observer
 	private int winningSteps;
 	private IDataManager hs_manager;
 	private IDBMapper mapper; 
-
+	// solver stuff
+	private MainSolver solver;
 	
 	public MyModel(Policy policy) 
 	{
@@ -57,6 +62,8 @@ public class MyModel extends Observable implements FModel,Observer
 	this.fac_loader=new FactoryLevelLoader();
 	this.mapper = new SokoDBMapper();
 	this.hs_manager=new HSDataManager(mapper);
+	//solver stuff
+	
 	}
 
 	@Override
@@ -243,6 +250,36 @@ public class MyModel extends Observable implements FModel,Observer
 	public List<HighScoreP> getCurrentHighScoreList() 
 	{
 		return hs_manager.getCurrentHighScoreList();
+	}
+
+	@Override
+	public void solveCurrentLevel() 
+	{
+		String levelPath=getCurrentLevelPath();
+		String solutionPath="./LevelSolutions/level1.txt";
+		SokoHeuristics heuristics = new SokoHeuristics();
+		MainSolver solver = new MainSolver(heuristics);
+		solver.defineLevelPath(levelPath,solutionPath );
+		solver.loadLevel();
+		solver.asyncSolve();
+		Solution solution = solver.saveSolution();
+		if(solution == null)
+		{
+			System.out.println("Model: solution is null.");
+			return;
+		}
+		int size = solution.getTheSolution().size();
+		String [] parsed_solution = new String[size+2];
+		int i=2;
+		parsed_solution[0]="executesolution";
+		parsed_solution[1]=levelPath;
+		
+		for(Action a: solution.getTheSolution())
+		{
+			parsed_solution[i]=a.getAction();
+			i++;
+		}
+		updateObserver(parsed_solution);
 	}
 
 }

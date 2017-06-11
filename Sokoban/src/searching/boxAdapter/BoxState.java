@@ -1,7 +1,6 @@
 package searching.boxAdapter;
 
 import common_data.item.Position2D;
-import searching.search_util.SearchUtil;
 
 public class BoxState
 {
