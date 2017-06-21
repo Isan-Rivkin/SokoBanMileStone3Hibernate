@@ -16,20 +16,25 @@ import model.policy.Policy;
 import model.policy.SokobanPolicy;
 
 //test comment
-public class MainGUI extends Application {
+public class MainGUI extends Application 
+{
 	@Override
-	public void start(Stage primaryStage) {
-		try {
+	public void start(Stage primaryStage) 
+	{
+		try 
+		{
 			//extract port number
 			Parameters argu = getParameters();
 			int size = argu.getRaw().toString().lastIndexOf(",");
 			String server = argu.getRaw().toString();
 			String p=argu.getRaw().toString();
 			int port=-1;
-			if(p.length()>0 && size>1){
+			if(p.length()>0 && size>1)
+			{
 				server=server.substring(1, size);
 				p=p.substring(size+2,(argu.getRaw().toString().length()-1));
-				if(server.equals("-server")){
+				if(server.equals("-server"))
+				{
 				port = Integer.parseInt(p);
 				if(port<1000 || port >9999)
 					port = -1;
@@ -56,12 +61,15 @@ public class MainGUI extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch(Exception e) {
+		}
+		catch(Exception e) 
+		{
 			e.printStackTrace();
 		}	
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		launch(args);
 	}
 }

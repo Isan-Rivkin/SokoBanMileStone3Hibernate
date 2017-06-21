@@ -3,6 +3,8 @@ package controller.commands;
 import java.util.LinkedList;
 
 import model.FModel;
+import searchable.Action;
+import searchable.Solution;
 import view.FView;
 
 public class ExecuteSolutionCommand implements Command
@@ -22,13 +24,13 @@ public class ExecuteSolutionCommand implements Command
 	public void execute() 
 	{
 		//model.loadLevel(levelPath);
-		System.out.println("THIS IS THE SOLUTION IM GETTING ");
+		LinkedList<Action> actions = new LinkedList<>();
 		for(String s : solution)
 		{
-			System.out.println("---------------------------");
-			System.out.println(s);
+			actions.add(new Action(s));
 		}
-		//view.executeSolution(solution);
+		Solution sol = new Solution(actions);
+		view.executeSolution(sol);
 	}
 
 	@Override

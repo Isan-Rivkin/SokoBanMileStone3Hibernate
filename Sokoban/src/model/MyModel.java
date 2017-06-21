@@ -131,7 +131,8 @@ public class MyModel extends Observable implements FModel,Observer
 	}
 
 	@Override
-	public boolean isVictory() {
+	public boolean isVictory()
+	{
 		if(currentLevel!=null)
 			return currentLevel.isPlayerWon();
 		return false;
@@ -139,7 +140,8 @@ public class MyModel extends Observable implements FModel,Observer
 	}
 
 	@Override
-	public void move(int playerNum, String direction) {
+	public void move(int playerNum, String direction) 
+	{
 		if(currentLevel != null){
 			// add player num
 			movePush.move(currentLevel, direction);
@@ -155,7 +157,8 @@ public class MyModel extends Observable implements FModel,Observer
 		params.add("display");
 		setChanged();
 		notifyObservers(params);
-		if(currentLevel.isPlayerWon() && currentLevel.getCurrent_steps()<winningSteps){
+		if(currentLevel.isPlayerWon() && currentLevel.getCurrent_steps()<winningSteps)
+		{
 			winningSteps=currentLevel.getCurrent_steps();
 			LinkedList<String> won=new LinkedList<>();
 			won.add("winalert");
@@ -166,17 +169,20 @@ public class MyModel extends Observable implements FModel,Observer
 	}
 
 	@Override
-	public Level getCurrentLevel() {
+	public Level getCurrentLevel()
+	{
 		return this.currentLevel;
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg)
+	{
 		
 	}
 
 	@Override
-	public char[][] getCurrentCharLevel() {
+	public char[][] getCurrentCharLevel() 
+	{
 		if(currentLevel != null)
 			return currentLevel.getCharGameBoard();
 		return null;

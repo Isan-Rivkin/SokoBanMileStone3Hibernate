@@ -569,17 +569,22 @@ public class SearchUtil
 		
 		return a;
 	}
-	public List<String> parseSolution(Solution solution)
+	public static List<String> parseSolution(Solution solution)
 	{
-		List<String> actions = new LinkedList<>();
+		LinkedList<String> actions = new LinkedList<>();
 		List<Action> sol_actions = solution.getTheSolution();
-		for(Action a : sol_actions)
+		LinkedList<Action> reversed_sol_actions = new LinkedList<>();
+		for(Action s : sol_actions)
+		{
+			reversed_sol_actions.push(s);
+		}
+		for(Action a : reversed_sol_actions)
 		{
 			String ac = a.getAction();
 			int idx=0;
 			while((idx=ac.lastIndexOf("move"))!=-1)
 			{
-				actions.add(ac.substring(idx));
+				actions.addFirst(ac.substring(idx));
 				ac = ac.substring(0, idx);
 			}
 		}

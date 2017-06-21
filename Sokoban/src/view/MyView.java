@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +20,6 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,6 +43,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.database.HighScoreP;
 import model.policy.Iinterpeter;
+import searchable.Solution;
+import searching.search_util.SearchUtil;
 import view.highScoreLogic.HighScoreView;
 
 public class MyView extends Observable implements FView,Initializable,Observer
@@ -140,6 +140,7 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			public void handle(KeyEvent event) {
 				LinkedList<String> params=new LinkedList<String>();
 				params=interpeterMove.interperate(event.getCode().toString());
+
 				setChanged();
 				notifyObservers(params);
 			}
@@ -345,33 +346,37 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	// ask to solve
 	public void onSolveButton()
 	{
-//		LinkedList<String> params=new LinkedList<String>();	
-//		setChanged();
-//		params.add("solvecurrent");
-//		notifyObservers(params);
+		this.onResetButton();
+		LinkedList<String> params=new LinkedList<String>();	
+		setChanged();
+		params.add("solvecurrent");
+		notifyObservers(params);
 	}
 	//display solution
 	@Override
-	public void executeSolution(LinkedList<String> solution) 
+	public void executeSolution(Solution solution) 
 	{
-//		this.onResetButton();
-//		for(String move : solution)
-//		{
-//			LinkedList<String> cmd = interpeterMove.interperate(move);
-//			cmd.add(move);
-//			setChanged();
-//			notifyObservers(cmd);
-//			try 
-//			{
-//				Thread.sleep(500);
-//			}
-//			catch (InterruptedException e) 
-//			{
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		
+		
+		List<String> path = SearchUtil.parseSolution(solution);
+		for(String move : path)
+		{
+			LinkedList<String> cmd = new LinkedList<>();
+			cmd.add("move");
+			cmd.add("0");
+			move = move.substring(move.lastIndexOf("move")+5, move.length());
+			System.out.println("view: EXECUTING _______ " + move);
+			cmd.add(move);
+			setChanged();
+			notifyObservers(cmd);
+			try 
+			{
+				Thread.sleep(100);
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 	public void onExit()
 	{

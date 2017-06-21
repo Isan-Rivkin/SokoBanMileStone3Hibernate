@@ -43,11 +43,12 @@ public class CommandMove implements Command {
 	       this.model=model;
 	}
 	@Override
-	public void execute(){
-		if(this.valid){
+	public void execute()
+	{
+		if(this.valid)
+		{
 		model.move(playerNum, direction);	
 		}
-	
 	}
 public void init(LinkedList<String> params){
 	//first param = playnum, second param = direction
@@ -55,7 +56,8 @@ public void init(LinkedList<String> params){
 	playerNum = Integer.parseInt(params.removeFirst());
 	direction=params.removeFirst();
 	this.params=params;
-	if(playerNum>=0 && model!= null && util.isValidDirection(direction)){
+	if(playerNum>=0 && model!= null && util.isValidDirection(direction))
+	{
 		this.playerNum=playerNum;
 		this.valid=true;
 	}

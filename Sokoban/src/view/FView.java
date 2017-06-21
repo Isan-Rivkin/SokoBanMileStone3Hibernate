@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.database.HighScoreP;
 import model.policy.Iinterpeter;
+import searchable.Solution;
 
 
 
@@ -20,6 +21,6 @@ public interface FView {
 	public int getPort();
 	//highscore
 	public void updateHighScoreTable(List<HighScoreP> list);
-	public void executeSolution(LinkedList<String> solution);
+	public void executeSolution(Solution sol);
 	
 }

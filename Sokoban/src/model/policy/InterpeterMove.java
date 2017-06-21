@@ -16,13 +16,15 @@ public class InterpeterMove implements Iinterpeter,Serializable {
 	private HashMap<String, String> player_cmd;
 	private SokoUtil util;
 	public InterpeterMove(){}
-	public InterpeterMove(HashMap<String, String> player_index,HashMap<String, String> player_cmd) {
+	public InterpeterMove(HashMap<String, String> player_index,HashMap<String, String> player_cmd)
+	{
 		this.util=new SokoUtil();
 		this.player_index=player_index;
 		this.player_cmd=player_cmd;
 	}
 	@Override
-	public LinkedList<String> interperate(String cmd) {
+	public LinkedList<String> interperate(String cmd) 
+	{
 		LinkedList<String> params=new LinkedList<String>();
 		if(!player_cmd.containsKey(cmd) || !player_index.containsKey(cmd)){
 			params.add("move");
@@ -39,16 +41,20 @@ public class InterpeterMove implements Iinterpeter,Serializable {
 			params.add(1, player_index.get(cmd));
 		return params;
 	}
-	public HashMap<String, String> getPlayer_index() {
+	public HashMap<String, String> getPlayer_index()
+	{
 		return player_index;
 	}
-	public void setPlayer_index(HashMap<String, String> player_index) {
+	public void setPlayer_index(HashMap<String, String> player_index)
+	{
 		this.player_index = player_index;
 	}
 	public HashMap<String, String> getPlayer_cmd() {
 		return player_cmd;
+		
 	}
-	public void setPlayer_cmd(HashMap<String, String> player_cmd) {
+	public void setPlayer_cmd(HashMap<String, String> player_cmd) 
+	{
 		this.player_cmd = player_cmd;
 	}
 

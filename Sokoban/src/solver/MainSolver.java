@@ -115,8 +115,8 @@ public class MainSolver
 			e.printStackTrace();
 		}
 		LinkedList<Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
-		for(Action a: actions)
-			System.out.println(a.getAction());
+//		for(Action a: actions)
+//			System.out.println(a.getAction());
 		return new Solution(actions);
 	}
 	private LinkedList<Action> generateFullSolution(LinkedList<Solution> solutions_compilation)
