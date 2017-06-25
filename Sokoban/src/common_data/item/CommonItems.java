@@ -12,6 +12,8 @@ public abstract class CommonItems implements Item,Serializable
 	Position2D position;
 	public char id_char;
 	
+	public CommonItems() {}
+
 	public void setPosition(Position2D position)
 	{
 		this.position = position;
@@ -50,10 +52,6 @@ public char getId_char()
 		this.id_char = id_char;
 	}
 
-	public CommonItems() 
-	{
-	//this.position=new Position2D();
-	}
 
     public void print()
     {

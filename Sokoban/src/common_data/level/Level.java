@@ -31,15 +31,14 @@ import common_data.item.Wall;
  */
 //test for git
 
-public class Level implements LevelInterface,Serializable,Cloneable{
-
-	
-	private Item map[][];
-	private Movable movables[][];
-	private ArrayList<Player> players;
-    private ArrayList<Box> boxes;
-    private ArrayList<Target> targets;
-    private ArrayList<Wall> walls;
+public class Level implements LevelInterface,Serializable,Cloneable
+{
+	private  Item map[][];
+	private  Movable movables[][];
+	private  ArrayList<Player> players;
+    private  ArrayList<Box> boxes;
+    private  ArrayList<Target> targets;
+    private  ArrayList<Wall> walls;
     private int min_steps;
     private int current_steps;
     private int height;

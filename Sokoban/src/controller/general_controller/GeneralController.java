@@ -6,28 +6,38 @@ import java.util.concurrent.BlockingQueue;
 
 import controller.commands.Command;
 
-public class GeneralController {
+public class GeneralController 
+{
 	
 	private ArrayBlockingQueue<Command> queue;
 	private boolean keepRunning;
 	private ArrayList<Thread> threads_history;
-	public GeneralController() {
+	public GeneralController() 
+	{
 		this.queue=new ArrayBlockingQueue<Command>(50);
 		this.threads_history=new ArrayList<Thread>();
 		keepRunning=true;
 	}
 	
-	public void start(){
-		Thread t = new Thread(new Runnable() {
+	public void start()
+	{
+		Thread t = new Thread(new Runnable()
+		{
 			@Override
-			public void run() {
-				while (keepRunning) {
-					try {
+			public void run()
+			{
+				while (keepRunning)
+				{
+					try
+					{
 						Command cmd = queue.take();
-						if (cmd != null) {
+						if (cmd != null) 
+						{
 							cmd.execute();
 						}
-					} catch (InterruptedException e) {
+					}
+					catch (InterruptedException e)
+					{
 						e.printStackTrace();
 					}
 
