@@ -30,7 +30,8 @@ public class ExecuteSolutionCommand implements Command
 			actions.add(new Action(s));
 		}
 		Solution sol = new Solution(actions);
-		view.executeSolution(sol);
+//		view.executeSolution(sol);
+		model.adminMove(sol);
 	}
 
 	@Override

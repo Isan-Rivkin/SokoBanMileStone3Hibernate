@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import common_data.level.Level;
 import model.data.levelLoaders.FactoryLevelLoader;
@@ -23,12 +25,13 @@ import model.policy.Policy;
 import planning.plannable.SokoHeuristics;
 import searchable.Action;
 import searchable.Solution;
+import searching.search_util.SearchUtil;
 import sokoban_utils.SokoUtil;
 import solver.MainSolver;
 
 public class MyModel extends Observable implements FModel,Observer
 {
-		
+	private final static long delayAdminMove = 500;
 	private ArrayList<Level> levels; 
 	private Level currentLevel;//,originalLevel;
 	private ILevelLoader loader;
@@ -42,11 +45,16 @@ public class MyModel extends Observable implements FModel,Observer
 	private int winningSteps;
 	private IDataManager hs_manager;
 	private IDBMapper mapper; 
+	//hint stuff
+	private String lastPlayerMove="";
+	private LinkedList<String> lastSolutionList;
+	private boolean playerHintRuinedSolution=true;
 	// solver stuff
 	private MainSolver solver;
 	
 	public MyModel(Policy policy) 
 	{
+		this.lastSolutionList = null;
 	//indicator for showing winning msg once.
 	this.winningSteps=(int)Integer.MAX_VALUE;
 	this.currentLevelPath="";
@@ -67,13 +75,43 @@ public class MyModel extends Observable implements FModel,Observer
 	}
 
 	@Override
-	public void loadLevel(String path) {
+	public void adminMove(Solution sol)
+	{
+		  Timer t = new Timer();
+		    int i =0;
+		    LinkedList<String> moves = (LinkedList)SearchUtil.parseSolution(sol);
+		        t.scheduleAtFixedRate(new TimerTask() 
+		        {
+		            @Override
+		            public void run() 
+		            {
+		                if(moves.isEmpty())
+		                {
+		                    this.cancel();
+		                    return;
+		                }
+		                String b =moves.removeLast();
+		                LinkedList<String> params = new LinkedList<>();
+		                params.add("move");
+		                params.add("0");
+		                params.add(b.substring(5));
+		                setChanged();
+		                notifyObservers(params);
+		            }
+		        },0,delayAdminMove);
+
+		  
+	}
+	@Override
+	public void loadLevel(String path) 
+	{
 		System.out.println("model: path: "+path);
 		LinkedList<String> params=new LinkedList<>();
 		if(util.isValidFileType(util.extractFileType(path)) && util.isFileExist(path)){
 			this.currentLevelPath=path;
 			loader=fac_loader.getLevelLoader(path);
-			try {
+			try
+			{
 				InputStream in = new FileInputStream(path);
 				currentLevel=loader.load(in);
 				if(currentLevel == null)
@@ -145,7 +183,23 @@ public class MyModel extends Observable implements FModel,Observer
 		if(currentLevel != null){
 			// add player num
 			movePush.move(currentLevel, direction);
+			char[][] beforeMoveMap = SearchUtil.duplicateMap(currentLevel.getCharGameBoard());
 			currentLevel = movePush.getLevel();
+			// check if move happend or not.
+			if(lastSolutionList != null &&!SearchUtil.isLevelsEqual(beforeMoveMap, currentLevel.getCharGameBoard()))
+			{
+				lastPlayerMove = direction;
+				if(!lastSolutionList.get(0).equals(lastPlayerMove))
+				{
+					playerHintRuinedSolution = true;
+					lastSolutionList = new LinkedList<>();
+				}
+				else
+				{
+					playerHintRuinedSolution = false;
+					lastSolutionList.removeFirst();
+				}
+			}
 			if(currentLevel.alreadyWon() && currentLevel.numOfBoxesOnTargets()<currentLevel.getNumOfTargets()){
 				winningSteps=(int)Integer.MAX_VALUE;
 				currentLevel.setAlreadyWon(false);
@@ -286,6 +340,34 @@ public class MyModel extends Observable implements FModel,Observer
 			i++;
 		}
 		updateObserver(parsed_solution);
+	}
+
+	@Override
+	public void getHint() 
+	{
+		if(playerHintRuinedSolution)
+		{
+		String levelPath=getCurrentLevelPath();
+		String solutionPath="./LevelSolutions/level1.txt";
+		SokoHeuristics heuristics = new SokoHeuristics();
+		MainSolver solver = new MainSolver(heuristics);
+		solver.defineLevelPath(levelPath,solutionPath );
+		solver.loadLevel();
+		solver.asyncSolve();
+		Solution solution = solver.saveSolution();
+		if(solution == null)
+		{
+			System.out.println("Model: solution is null.");
+			return;
+		}
+		LinkedList<String> s = (LinkedList)SearchUtil.parseSolution(solution);
+		lastSolutionList = s;
+		updateObserver("hint",lastSolutionList.removeFirst());
+		}
+		else 
+		{
+			updateObserver("hint",lastSolutionList.getFirst());
+		}
 	}
 
 }

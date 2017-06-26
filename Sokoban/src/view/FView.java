@@ -21,6 +21,5 @@ public interface FView {
 	public int getPort();
 	//highscore
 	public void updateHighScoreTable(List<HighScoreP> list);
-	public void executeSolution(Solution sol);
 	
 }

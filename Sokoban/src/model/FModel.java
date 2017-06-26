@@ -1,14 +1,12 @@
 package model;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import common_data.level.Level;
 import model.database.HighScoreP;
 import model.database.POJO;
-import model.database.PlayerP;
 import model.policy.Policy;
+import searchable.Solution;
 
 public interface FModel {
 	public void loadLevel(String path); 
@@ -21,6 +19,7 @@ public interface FModel {
 	public char[][] getCurrentCharLevel();
 	public Policy getPolicy();
 	public String getCurrentLevelPath();
+	public void adminMove(Solution sol);
 	// ---  data manager --- //
 	//returns list of highscores
 	public List<HighScoreP> search(String classify, String lName,String pName, String orderType);
@@ -32,6 +31,7 @@ public interface FModel {
 	public void save(POJO line);
 	public List<HighScoreP> getCurrentHighScoreList();
 	public void solveCurrentLevel();
+	public void getHint();
 
 	
 }

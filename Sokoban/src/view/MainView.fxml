@@ -40,6 +40,7 @@
                </VBox.margin></Button>
             <Button id="record-sales" fx:id="loadButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLoadLevel" stylesheets="@application.css" text="Load" textFill="WHITE" />
             <Button id="record-sales" fx:id="saveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveLevel" stylesheets="@application.css" text="Save" textFill="WHITE" />
+            <Button fx:id="hintButon" mnemonicParsing="false" onAction="#onHintButton" text="Hint" />
             <Button id="record-sales" fx:id="highScoreButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onHighScoreButton" stylesheets="@application.css" text="HighScore" textFill="#fefcfc" />
             <Button id="record-sales" fx:id="buttonMute" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#muteSong" stylesheets="@application.css" text="Mute" textFill="WHITE" />
             <Button id="record-sales" fx:id="solveButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSolveButton" stylesheets="@application.css" text="Solve" textFill="#f5f5f5" />
@@ -82,6 +83,11 @@
                <padding>
                   <Insets top="3.0" />
                </padding></Label>
+            <Label fx:id="hintLabel" text="Hint Directoion" textFill="WHITE">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </top>

@@ -43,8 +43,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.database.HighScoreP;
 import model.policy.Iinterpeter;
-import searchable.Solution;
-import searching.search_util.SearchUtil;
 import view.highScoreLogic.HighScoreView;
 
 public class MyView extends Observable implements FView,Initializable,Observer
@@ -80,6 +78,10 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	private Button button1;
 	@FXML
 	private Button solveButton;
+	@FXML
+	private Label hintLabel;
+	@FXML
+	private Button hintButton;
 	
 	public void MyView() 
 	{
@@ -352,32 +354,15 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		params.add("solvecurrent");
 		notifyObservers(params);
 	}
-	//display solution
-	@Override
-	public void executeSolution(Solution solution) 
+	public void onHintButton()
 	{
-		
-		List<String> path = SearchUtil.parseSolution(solution);
-		for(String move : path)
-		{
-			LinkedList<String> cmd = new LinkedList<>();
-			cmd.add("move");
-			cmd.add("0");
-			move = move.substring(move.lastIndexOf("move")+5, move.length());
-			System.out.println("view: EXECUTING _______ " + move);
-			cmd.add(move);
-			setChanged();
-			notifyObservers(cmd);
-			try 
-			{
-				Thread.sleep(100);
-			}
-			catch (InterruptedException e) 
-			{
-				e.printStackTrace();
-			}
-		}
+		System.out.println("Click button :hint");
 	}
+	// deleted !!!! 
+	//display solution
+//	@Override
+	
+	
 	public void onExit()
 	{
 		this.gameAlive=false;
@@ -390,7 +375,7 @@ public class MyView extends Observable implements FView,Initializable,Observer
 			notifyObservers(params);
 		}
 		Platform.exit();
-		System.exit(0);
+		System.exit(0); 
 	}
 	public void chooseGender()
 	{

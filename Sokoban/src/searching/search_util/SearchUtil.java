@@ -584,12 +584,68 @@ public class SearchUtil
 			int idx=0;
 			while((idx=ac.lastIndexOf("move"))!=-1)
 			{
+		        if(idx==0)
+                {
+                    actions.addFirst(ac.substring(0, ac.length()));
+                    break;
+                }
 				actions.addFirst(ac.substring(idx));
 				ac = ac.substring(0, idx);
 			}
 		}
+		List<String> finalOne = getListFromSol(actions);
+        actions = new LinkedList<>();
+        for(String b: finalOne)
+        {
+            actions.addFirst("move "+b);
+        }
 		return actions;
 	}
+
+	  
+    /**
+     * helps the parseSolution method
+     * @param s
+     * @return
+     */
+    public static List<String> getListFromSol(List<String> s)
+    {
+        List<String> ss = new LinkedList<String>();
+        for (String a : s)
+        {
+            if (a.contains(up))
+            {
+             ss.add(up);    
+            }
+            if (a.contains(down))
+            {
+                ss.add(down);
+            }
+            if (a.contains(right))
+            {
+                ss.add(right);
+            }
+            if (a.contains(left))
+            {
+                ss.add(left);
+            }
+        }
+        return ss;
+    }
+    public static boolean isLevelsEqual(char [][]map1, char[][]map2)
+    {
+    	for(int i=0;i<map1.length;++i)
+    	{
+    		for(int j=0;j<map1[i].length;++j)
+    		{
+    			if(map1[i][j] != map2[i][j])
+    			{
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
 }
 
 
