@@ -1,6 +1,7 @@
 package metadata;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import coders.Coder;
 import common_data.item.Box;
@@ -17,6 +18,7 @@ import common_data.level.Level;
 import model.data.itemGeneratos.FactoryItemLoader;
 import model.data.itemGeneratos.IitemGenerator;
 import model.database.HighScoreP;
+import model.database.HighScoreQuery;
 import model.database.LevelP;
 import model.database.PlayerP;
 import model.policy.PolicyLevelStructure;
@@ -27,6 +29,10 @@ public class FMGenerator
 	/**
 	 * query models
 	 */
+	public static HSQueryModel generateHSQueryModel(HighScoreQuery hs)
+	{
+		return new HSQueryModel(hs.getLevelName(), hs.getPlayerName(), hs.getMaxResults(), hs.getOrderBy(), hs.isDESC());
+	}
 	/**
 	 * data compressor
 	 */
@@ -42,10 +48,19 @@ public class FMGenerator
 		HighScoreModel model = new HighScoreModel(hs.getPlayerName(), hs.getLevelName(), hs.getPlayerSteps(), hs.getPlayerTime());
 		return model;
 	}
-	public HighScoreP staticgetHighScorePojo(HighScoreModel model)
+	public static HighScoreP getHighScorePojo(HighScoreModel model)
 	{
 		HighScoreP hs = new HighScoreP(model.getPlayerName(), model.getLevelName(), model.getPlayerSteps(), model.getPlayerTime());
 		return hs;
+	}
+	public static List<HighScoreP> getHSPojoList(List<HighScoreModel> models)
+	{
+		List<HighScoreP> pojos = new ArrayList<>();
+		for(HighScoreModel m : models)
+		{
+			pojos.add(getHighScorePojo(m));
+		}
+		return pojos;
 	}
 	public static PlayerModel generatePlayerModel(PlayerP p)
 	{

@@ -1,7 +1,18 @@
 package model;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import metadata.FMGenerator;
+import metadata.HSQueryModel;
+import metadata.HighScoreModel;
+import metadata.METADATA;
+import metadata.Protocol;
 import model.database.HighScoreP;
 import model.database.HighScoreQuery;
 import model.database.IDBMapper;
@@ -9,6 +20,8 @@ import model.database.IQuery;
 import model.database.LevelP;
 import model.database.POJO;
 import model.database.PlayerP;
+import model.services.ServiceRequester;
+import model.services.ServiceRequester.ServiceResponse;
 
 public class HSDataManager implements IDataManager 
 {
@@ -52,7 +65,20 @@ public class HSDataManager implements IDataManager
 			query.initOrderByTime();
 		}
 		query.setMaxResults(50);
-		hs_list= mapper.searchHighScore(query);
+		//hs_list= mapper.searchHighScore(query);
+		GsonBuilder b = new GsonBuilder();
+		Gson g = b.create();
+		HSQueryModel hsQModel = FMGenerator.generateHSQueryModel((HighScoreQuery)query);
+		METADATA metaData = new METADATA();
+		metaData.setId(Protocol.HS_SEARCH);
+		String jsonMetaDataString = g.toJson(metaData);
+		String jsonHSQModelString = g.toJson(hsQModel);
+		//...
+		ServiceRequester req = new ServiceRequester();
+		ServiceResponse res = req.requestService(jsonHSQModelString, jsonMetaDataString, Protocol.serverIP, Protocol.serverPort);
+		Type listType = new TypeToken<ArrayList<HighScoreModel>>(){}.getType();
+		List<HighScoreModel> query_model_list = new Gson().fromJson(res.getJsonObject(), listType);
+		hs_list = FMGenerator.getHSPojoList(query_model_list);
 		return hs_list;
 	}
 

@@ -7,6 +7,14 @@ public class HighScoreQuery implements IQuery
 	private String playerName;
 	private int maxResults;
 	private String orderBy;
+	public HighScoreQuery(String levelName, String playerName, int maxResults, String orderBy, boolean desc) {
+		super();
+		this.levelName = levelName;
+		this.playerName = playerName;
+		this.maxResults = maxResults;
+		this.orderBy = orderBy;
+		this.desc = desc;
+	}
 	private boolean desc;
 	
 	public HighScoreQuery()
