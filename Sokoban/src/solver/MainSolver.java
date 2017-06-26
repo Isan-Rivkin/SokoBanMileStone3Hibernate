@@ -37,6 +37,10 @@ public class MainSolver
 		this.heuristics=heuristics;
 		solvers = new LinkedList<SokobanSolver>();
 	}
+	public void setLevel(Level l)
+	{
+		this.level=l;
+	}
 	public void defineLevelPath(String in,String out)
 	{
 		this.in=in;

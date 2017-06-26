@@ -89,6 +89,14 @@ public class MyView extends Observable implements FView,Initializable,Observer
 		setFocus();
 	}
 
+	public void displayHint(String hint)
+	{
+		Platform.runLater(()->
+		{
+			hintLabel.setText(hint);
+		});
+	}
+	
 	@Override
 	public void displayHeaderMessage(String message) 
 	{
@@ -356,7 +364,10 @@ public class MyView extends Observable implements FView,Initializable,Observer
 	}
 	public void onHintButton()
 	{
-		System.out.println("Click button :hint");
+		   LinkedList<String> params=new LinkedList<String>(); 
+	        setChanged();
+	        params.add("getHint");
+	        notifyObservers(params);
 	}
 	// deleted !!!! 
 	//display solution

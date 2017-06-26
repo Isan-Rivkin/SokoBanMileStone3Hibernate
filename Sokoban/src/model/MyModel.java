@@ -31,6 +31,7 @@ import solver.MainSolver;
 
 public class MyModel extends Observable implements FModel,Observer
 {
+	private String lastHint;
 	private final static long delayAdminMove = 500;
 	private ArrayList<Level> levels; 
 	private Level currentLevel;//,originalLevel;
@@ -54,6 +55,7 @@ public class MyModel extends Observable implements FModel,Observer
 	
 	public MyModel(Policy policy) 
 	{
+		this.lastHint="";
 		this.lastSolutionList = null;
 	//indicator for showing winning msg once.
 	this.winningSteps=(int)Integer.MAX_VALUE;
@@ -180,27 +182,31 @@ public class MyModel extends Observable implements FModel,Observer
 	@Override
 	public void move(int playerNum, String direction) 
 	{
-		if(currentLevel != null){
-			// add player num
-			movePush.move(currentLevel, direction);
-			char[][] beforeMoveMap = SearchUtil.duplicateMap(currentLevel.getCharGameBoard());
-			currentLevel = movePush.getLevel();
-			// check if move happend or not.
-			if(lastSolutionList != null &&!SearchUtil.isLevelsEqual(beforeMoveMap, currentLevel.getCharGameBoard()))
-			{
-				lastPlayerMove = direction;
-				if(!lastSolutionList.get(0).equals(lastPlayerMove))
-				{
-					playerHintRuinedSolution = true;
-					lastSolutionList = new LinkedList<>();
-				}
-				else
-				{
-					playerHintRuinedSolution = false;
-					lastSolutionList.removeFirst();
-				}
-			}
-			if(currentLevel.alreadyWon() && currentLevel.numOfBoxesOnTargets()<currentLevel.getNumOfTargets()){
+		  if(currentLevel != null){
+	            // add player num
+	            movePush.move(currentLevel, direction);
+	            char[][] beforeMoveMap = SearchUtil.duplicateMap(currentLevel.getCharGameBoard());
+	            currentLevel = movePush.getLevel();
+	            // check if move happend or not.
+	            if(lastSolutionList != null || !SearchUtil.isLevelsEqual(beforeMoveMap, currentLevel.getCharGameBoard()))
+	            {
+	                lastPlayerMove = "move " + direction;
+	                System.out.println("chekc = "+lastPlayerMove+ " ? " + lastHint);
+	                if(!lastHint.equals(lastPlayerMove))
+	                {
+	                
+	                    playerHintRuinedSolution = true;
+	                    lastSolutionList = new LinkedList<>();
+	                    lastHint="";
+	                }
+	                else
+	                {
+	                    playerHintRuinedSolution = false;
+	                    if(!lastSolutionList.isEmpty())
+	                    lastHint = lastSolutionList.removeLast();
+	                }
+	            }
+	        	if(currentLevel.alreadyWon() && currentLevel.numOfBoxesOnTargets()<currentLevel.getNumOfTargets()){
 				winningSteps=(int)Integer.MAX_VALUE;
 				currentLevel.setAlreadyWon(false);
 			}
@@ -342,32 +348,37 @@ public class MyModel extends Observable implements FModel,Observer
 		updateObserver(parsed_solution);
 	}
 
-	@Override
-	public void getHint() 
-	{
-		if(playerHintRuinedSolution)
-		{
-		String levelPath=getCurrentLevelPath();
-		String solutionPath="./LevelSolutions/level1.txt";
-		SokoHeuristics heuristics = new SokoHeuristics();
-		MainSolver solver = new MainSolver(heuristics);
-		solver.defineLevelPath(levelPath,solutionPath );
-		solver.loadLevel();
-		solver.asyncSolve();
-		Solution solution = solver.saveSolution();
-		if(solution == null)
-		{
-			System.out.println("Model: solution is null.");
-			return;
-		}
-		LinkedList<String> s = (LinkedList)SearchUtil.parseSolution(solution);
-		lastSolutionList = s;
-		updateObserver("hint",lastSolutionList.removeFirst());
-		}
-		else 
-		{
-			updateObserver("hint",lastSolutionList.getFirst());
-		}
-	}
+
+    @Override
+    public void getHint() 
+    {
+        if(playerHintRuinedSolution || lastSolutionList==null)
+        {
+        String levelPath=getCurrentLevelPath();
+        String solutionPath="./LevelSolutions/level1.txt";
+        SokoHeuristics heuristics = new SokoHeuristics();
+        MainSolver solver = new MainSolver(heuristics);
+        solver.defineLevelPath(levelPath,solutionPath );
+//      solver.loadLevel();
+        solver.setLevel(currentLevel);
+        solver.asyncSolve();
+        Solution solution = solver.saveSolution();
+        if(solution == null)
+            {
+                System.out.println("Model: solution is null.");
+                return;
+            }
+        LinkedList<String> s = (LinkedList<String>)SearchUtil.parseSolution(solution);
+        lastSolutionList = s;
+        playerHintRuinedSolution=false;
+        for (String d : s)
+        {
+            System.out.println("Hint : " + d);
+        }
+        lastHint = lastSolutionList.removeLast();
+        }
+        
+        updateObserver("displayHint",lastHint);
+    }
 
 }

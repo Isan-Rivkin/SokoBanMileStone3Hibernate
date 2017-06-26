@@ -14,7 +14,9 @@ import controller.commands.CommandDisplayAlert;
 import controller.commands.CommandDisplayFooterMessage;
 import controller.commands.CommandDisplayHS;
 import controller.commands.CommandDisplayHeaderMessage;
+import controller.commands.CommandDisplayHint;
 import controller.commands.CommandExit;
+import controller.commands.CommandGetHint;
 import controller.commands.CommandInseretLevelDB;
 import controller.commands.CommandLevelSaver;
 import controller.commands.CommandLoadLevel;
@@ -79,7 +81,8 @@ public class SokobanController implements FController,Observer {
 		//solution commands
 		this.create_cmd.put("solvecurrent", new SolveCurrentCommand(model, view));
 		this.create_cmd.put("executesolution", new ExecuteSolutionCommand(model, view));
-
+		this.create_cmd.put("displayHint", new CommandDisplayHint(view));
+		this.create_cmd.put("getHint", new CommandGetHint(model));
 	}
 	@Override
 	public void update(Observable o, Object arg) 

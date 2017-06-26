@@ -1,3 +1,7 @@
-move right
+move down
+move left
+move up
+move left
+move up
 move right
 move right
