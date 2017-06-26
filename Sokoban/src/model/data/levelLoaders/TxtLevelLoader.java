@@ -29,7 +29,8 @@ import sokoban_utils.SokoUtil;
  * @author Daniel Hake & Isan Rivkin
  *
  */
-public class TxtLevelLoader implements ILevelLoader {
+public class TxtLevelLoader implements ILevelLoader 
+{
 	SokoUtil util;
 	public TxtLevelLoader() {
 	 util=new SokoUtil();

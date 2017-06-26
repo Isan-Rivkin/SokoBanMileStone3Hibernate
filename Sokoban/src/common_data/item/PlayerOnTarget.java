@@ -1,6 +1,8 @@
 package common_data.item;
 
-public class PlayerOnTarget implements Item,Movable {
+import java.io.Serializable;
+
+public class PlayerOnTarget implements Item,Movable,Serializable {
  
 	char id;
 	

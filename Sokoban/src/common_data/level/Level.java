@@ -1,5 +1,8 @@
 package common_data.level;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +17,11 @@ import common_data.item.PlayerOnTarget;
 import common_data.item.Position2D;
 import common_data.item.Target;
 import common_data.item.Wall;
+import metadata.LevelModel;
+import model.data.itemGeneratos.FactoryItemLoader;
+import model.data.itemGeneratos.IitemGenerator;
+import model.policy.PolicyLevelStructure;
+import model.policy.SokobanPolicy;
 /**
  * @author Isan Rivkin and Daniel Hake
  * @param map 2d matrix of all the non Movable objecs in the game (floor, wall) 
@@ -490,6 +498,10 @@ public class Level implements LevelInterface,Serializable,Cloneable
     	l.movables=generateMovablesCopy(l.boxes,l.players,this.movables);
 		return l;
     }
-	
-
+	@Override
+	public LevelModel getModel() 
+	{
+		LevelModel levelModel = new LevelModel(getCharGameBoard(), min_steps, current_steps, height, width, alreadyWon, getNumOfBoxes(), getNumOfTargets(),0, getNumOfPlayers(), getNumOfWalls());
+		return levelModel;
+	}
 }

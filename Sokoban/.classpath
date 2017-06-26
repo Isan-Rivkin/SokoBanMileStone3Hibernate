@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="libs/sqljdbc42.jar"/>
 	<classpathentry kind="lib" path="libs/MySearchLib.jar"/>
 	<classpathentry kind="lib" path="libs/MyPlannerLibrary.jar"/>
+	<classpathentry kind="lib" path="libs/Coder.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

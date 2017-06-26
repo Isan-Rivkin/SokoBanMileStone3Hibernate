@@ -11,6 +11,7 @@ import common_data.item.Player;
 import common_data.item.Position2D;
 import common_data.item.Target;
 import common_data.item.Wall;
+import metadata.LevelModel;
 /**
  * 
  * @author Isan Rivkin & Daniel Hake
@@ -66,4 +67,5 @@ public interface LevelInterface extends Serializable {
     public void updatePosition(Position2D oldPos, Position2D newPos);
     public void addStepToPlayer(int playerNum);
     public Item getUniqueItemFromList(Collection<? extends Item> list, Position2D pos );
+    public LevelModel getModel();
 }

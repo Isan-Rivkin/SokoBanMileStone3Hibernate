@@ -7,6 +7,7 @@ import java.io.Serializable;
  *
  */
 public interface Movable extends Serializable{
+	
 	public char getId_char();	
 	public int getPosX();
 	public int getPosY();

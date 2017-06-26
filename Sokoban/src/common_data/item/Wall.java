@@ -7,7 +7,8 @@ import java.io.Serializable;
  *
  */
 public class Wall extends CommonItems implements Item,Serializable{
-	public Wall() {
+	public Wall() 
+	{
 		this.id_char='#';
 	}
 }

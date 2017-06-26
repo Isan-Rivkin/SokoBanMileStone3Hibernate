@@ -1,6 +1,8 @@
 package common_data.item;
 
-public class BoxOnTarget implements Item
+import java.io.Serializable;
+
+public class BoxOnTarget implements Item,Serializable
 {
 	private char char_id;
 	
