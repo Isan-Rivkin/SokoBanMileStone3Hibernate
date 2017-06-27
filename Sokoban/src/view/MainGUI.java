@@ -56,7 +56,6 @@ public class MainGUI extends Application
 			gui.setStage(primaryStage);
 			controller.start();
 			//end of soko stuff
-			
 			Scene scene = new Scene(root,1000,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

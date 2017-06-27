@@ -23,7 +23,11 @@ public class Protocol
 	public final static String HS_SAVE_POJO ="5";
 	public final static String HS_GET_CURRENT_HS="6";
 	public final static int HS_SEARCH_LEN=4;
+	public final static String HS_SIGNUP_P = "8";
 	public final static String TEST_NETWORK ="7";
+    public final static String POJO_HS ="phs";
+    public final static String POJO_LEVEL ="pl";
+	public final static String POJO_PLAYER ="pp";
 	/************************
 	 * commands protocol*****
 	 *************************/
