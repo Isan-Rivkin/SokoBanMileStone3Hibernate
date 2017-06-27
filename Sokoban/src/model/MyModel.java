@@ -12,7 +12,13 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.gson.Gson;
+
 import common_data.level.Level;
+import metadata.FMGenerator;
+import metadata.LevelModel;
+import metadata.METADATA;
+import metadata.Protocol;
 import model.data.levelLoaders.FactoryLevelLoader;
 import model.data.levelLoaders.ILevelLoader;
 import model.database.HighScoreP;
@@ -22,6 +28,8 @@ import model.database.SokoDBMapper;
 import model.policy.CalculateMove;
 import model.policy.Imove;
 import model.policy.Policy;
+import model.services.ServiceRequester;
+import model.services.ServiceRequester.ServiceResponse;
 import planning.plannable.SokoHeuristics;
 import searchable.Action;
 import searchable.Solution;
@@ -107,7 +115,6 @@ public class MyModel extends Observable implements FModel,Observer
 	@Override
 	public void loadLevel(String path) 
 	{
-		System.out.println("model: path: "+path);
 		LinkedList<String> params=new LinkedList<>();
 		if(util.isValidFileType(util.extractFileType(path)) && util.isFileExist(path)){
 			this.currentLevelPath=path;
@@ -119,6 +126,8 @@ public class MyModel extends Observable implements FModel,Observer
 				if(currentLevel == null)
 					util.notifyUser("Model", "Could not load level");
 			    levels.add(currentLevel);
+			    currentLevel.setAlreadyWon(false);
+			    winningSteps = Integer.MAX_VALUE;
 			     util.notifyUser("Model", "Loaded Level");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -321,24 +330,45 @@ public class MyModel extends Observable implements FModel,Observer
 	@Override
 	public void solveCurrentLevel() 
 	{
-		String levelPath=getCurrentLevelPath();
-		String solutionPath="./LevelSolutions/level1.txt";
-		SokoHeuristics heuristics = new SokoHeuristics();
-		MainSolver solver = new MainSolver(heuristics);
-		solver.defineLevelPath(levelPath,solutionPath );
-		solver.loadLevel();
-		solver.asyncSolve();
-		Solution solution = solver.saveSolution();
-		if(solution == null)
-		{
-			System.out.println("Model: solution is null.");
-			return;
-		}
+    	updateObserver("displayHint","PLEASE WAIT WHILE CALCULATING SOLUTION - SIZE MATTERS ;)");
+        ServiceRequester sr = new ServiceRequester();
+        Gson g = sr.getGson();
+        METADATA m = new METADATA();
+        m.setId(Protocol.SOLVE_LEVEL);
+        LevelModel lModel = FMGenerator.generateModelFromLevel(currentLevel);
+        String mdString = g.toJson(m);
+        String objString = g.toJson(lModel);
+        ServiceResponse sres = sr.requestService(objString, mdString, Protocol.serverIP,Protocol.serverPort);
+        
+        String objFromServer =sres.getJsonObject(); 
+        Solution solution = g.fromJson(objFromServer, Solution.class);          
+    if(solution == null)
+        {
+            System.out.println("Model: solution is null.");
+            return;
+        }
+//		updateObserver("displayHint","PLEASE WAIT WHILE CALCULATING SOLUTION - SIZE MATTERS ;)");
+//		String levelPath=getCurrentLevelPath();
+//		String solutionPath="./LevelSolutions/level1.txt";
+//		SokoHeuristics heuristics = new SokoHeuristics();
+//		MainSolver solver = new MainSolver(heuristics);
+//		solver.defineLevelPath(levelPath,solutionPath );
+//		if(currentLevel==null)
+//			solver.loadLevel();
+//		else 
+//			solver.setLevel(currentLevel);
+//		solver.asyncSolve();
+//		Solution solution = solver.saveSolution();
+//		if(solution == null)
+//		{
+//			System.out.println("Model: solution is null.");
+//			return;
+//		}
 		int size = solution.getTheSolution().size();
 		String [] parsed_solution = new String[size+2];
 		int i=2;
 		parsed_solution[0]="executesolution";
-		parsed_solution[1]=levelPath;
+		parsed_solution[1]=getCurrentLevelPath();
 		
 		for(Action a: solution.getTheSolution())
 		{
@@ -349,20 +379,22 @@ public class MyModel extends Observable implements FModel,Observer
 	}
 
 
-    @Override
-    public void getHint() 
+	public void getHint() 
     {
         if(playerHintRuinedSolution || lastSolutionList==null)
         {
-        String levelPath=getCurrentLevelPath();
-        String solutionPath="./LevelSolutions/level1.txt";
-        SokoHeuristics heuristics = new SokoHeuristics();
-        MainSolver solver = new MainSolver(heuristics);
-        solver.defineLevelPath(levelPath,solutionPath );
-//      solver.loadLevel();
-        solver.setLevel(currentLevel);
-        solver.asyncSolve();
-        Solution solution = solver.saveSolution();
+        	updateObserver("displayHint","PLEASE WAIT WHILE CALCULATING SOLUTION - SIZE MATTERS ;)");
+            ServiceRequester sr = new ServiceRequester();
+            Gson g = sr.getGson();
+            METADATA m = new METADATA();
+            m.setId(Protocol.SOLVE_LEVEL);
+            LevelModel lModel = FMGenerator.generateModelFromLevel(currentLevel);
+            String mdString = g.toJson(m);
+            String objString = g.toJson(lModel);
+            ServiceResponse sres = sr.requestService(objString, mdString, Protocol.serverIP,Protocol.serverPort);
+            
+            String objFromServer =sres.getJsonObject(); 
+            Solution solution = g.fromJson(objFromServer, Solution.class);          
         if(solution == null)
             {
                 System.out.println("Model: solution is null.");
@@ -371,14 +403,11 @@ public class MyModel extends Observable implements FModel,Observer
         LinkedList<String> s = (LinkedList<String>)SearchUtil.parseSolution(solution);
         lastSolutionList = s;
         playerHintRuinedSolution=false;
-        for (String d : s)
-        {
-            System.out.println("Hint : " + d);
-        }
         lastHint = lastSolutionList.removeLast();
         }
         
         updateObserver("displayHint",lastHint);
     }
+
 
 }

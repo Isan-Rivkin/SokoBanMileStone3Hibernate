@@ -41,6 +41,10 @@ public class MainSolver
 	{
 		this.level=l;
 	}
+	public Level getLevel()
+	{
+		return level;
+	}
 	public void defineLevelPath(String in,String out)
 	{
 		this.in=in;
@@ -98,27 +102,27 @@ public class MainSolver
 	
 	public Solution saveSolution()
 	{
-		FactorySolutionHandler factory = new FactorySolutionHandler();
-		ISolutionHandler handler = factory.getLevelLoader(out);
+	//	FactorySolutionHandler factory = new FactorySolutionHandler();
+		//ISolutionHandler handler = factory.getLevelLoader(out);
 		OutputStream o;
-		try 
-		{
+	//	try 
+//		{
 			if(this.actualSolver == null)
 			{
 				return null;
 			}
 				
-			o = new FileOutputStream(new File(out));
+			//o = new FileOutputStream(new File(out));
 
 			LinkedList<Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
 			Solution finalFinalSolution = new Solution(actions);
-			handler.save(o, finalFinalSolution);
-		} 
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
-		LinkedList<Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
+		//	handler.save(o, finalFinalSolution);
+	//	} 
+//		catch (FileNotFoundException e) 
+//		{
+//			e.printStackTrace();
+//		}
+		//LinkedList<Action> actions = generateFullSolution(this.actualSolver.getFinalSolution().solutions_compilation);
 //		for(Action a: actions)
 //			System.out.println(a.getAction());
 		return new Solution(actions);

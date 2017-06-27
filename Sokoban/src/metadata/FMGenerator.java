@@ -3,7 +3,6 @@ package metadata;
 import java.util.ArrayList;
 import java.util.List;
 
-import coders.Coder;
 import common_data.item.Box;
 import common_data.item.BoxOnTarget;
 import common_data.item.Floor;
@@ -15,6 +14,8 @@ import common_data.item.Position2D;
 import common_data.item.Target;
 import common_data.item.Wall;
 import common_data.level.Level;
+import model.HuffmanCompression.Coder;
+import model.HuffmanCompression.ICoder;
 import model.data.itemGeneratos.FactoryItemLoader;
 import model.data.itemGeneratos.IitemGenerator;
 import model.database.HighScoreP;
@@ -36,7 +37,7 @@ public class FMGenerator
 	/**
 	 * data compressor
 	 */
-	public static Coder getDataCompressor()
+	public static ICoder getDataCompressor()
 	{
 		return new Coder();
 	}
