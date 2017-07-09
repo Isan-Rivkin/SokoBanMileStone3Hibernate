@@ -1,5 +1,9 @@
 package model.database;
-
+/**
+ * deprecated.
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

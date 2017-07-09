@@ -1,5 +1,9 @@
 package model.database;
-
+/**
+ * deprecated.
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 public interface IQuery {
 	public String getLevelName();
 	public String getPlayerName();

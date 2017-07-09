@@ -1,5 +1,9 @@
 package model.database;
-
+/**
+ * deprecated.
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 import java.util.List;
 
 import org.hibernate.HibernateException;

@@ -12,7 +12,13 @@ import plannerP.Strips;
 import planning.plannable.PlannableCreator;
 import planning.plannable.SokoHeuristics;
 import sokoban_utils.SokoUtil;
-
+/**
+ * A statless instance for inner use by MainSolve.java class.
+ * each SokobanSolver represents a different possible solution.
+ * some will fail, some will get a solution.
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 public class SokobanSolver extends Thread implements ISolver
 {
 	private String in;

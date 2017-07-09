@@ -11,7 +11,11 @@ import planning.plannable.PlanUtil.SearchContainer;
 import planning.plannable.PlannableCreator.PlannableContainerCreator;
 import searching.search_util.SearchUtil;
 import solver.FinalSolution;
-
+/**
+ * Plannable adapter for a Strips algorithm.
+ * @author Isan Rivkin
+ *
+ */
 public class SokobanPlannable implements Plannable
 {
 	

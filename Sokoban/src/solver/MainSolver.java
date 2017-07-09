@@ -18,7 +18,11 @@ import planning.plannable.SokoHeuristics;
 import searchable.Action;
 import searchable.Solution;
 import sokoban_utils.SokoUtil;
-
+/**
+ * Solver class for sokoban levels.
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 public class MainSolver
 {
 	List<SokobanSolver> solvers;
@@ -37,6 +41,9 @@ public class MainSolver
 		this.heuristics=heuristics;
 		solvers = new LinkedList<SokobanSolver>();
 	}
+	/**
+	 * @param l - config level to solve.
+	 */
 	public void setLevel(Level l)
 	{
 		this.level=l;
@@ -45,6 +52,11 @@ public class MainSolver
 	{
 		return level;
 	}
+	/**
+	 * read the leve from some inputstream to some outputstream.
+	 * @param in
+	 * @param out
+	 */
 	public void defineLevelPath(String in,String out)
 	{
 		this.in=in;
@@ -55,6 +67,10 @@ public class MainSolver
 		}
 		levelHandler = factory_loader.getLevelLoader(in);
 	}
+	/**
+	 * Solve the level asynchronously.
+	 * @return
+	 */
 	public SokobanSolver asyncSolve()
 	{
 		int numOfItterations = level.getTargets().size()+1;

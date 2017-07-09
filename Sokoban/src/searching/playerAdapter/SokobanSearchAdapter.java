@@ -10,7 +10,11 @@ import searchable.Searchable;
 import searchable.State;
 import searching.search_util.SearchUtil;
 import sokoban_utils.SokoUtil;
-
+/**
+ * Player search path  with BFS adapter. 
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 public class SokobanSearchAdapter implements Searchable<SokobanState>
 {	
 	final String up="up";

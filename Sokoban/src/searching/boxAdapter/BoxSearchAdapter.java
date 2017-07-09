@@ -9,7 +9,11 @@ import searchable.Solution;
 import searchable.State;
 import searching.search_util.SearchUtil;
 
-
+/**
+ * Full path including boxes bfs adapter.
+ * @author Isan Rivkin and Daniel Hake.
+ *
+ */
 public class BoxSearchAdapter implements Searchable<BoxState>
 {
 	final String up="up";

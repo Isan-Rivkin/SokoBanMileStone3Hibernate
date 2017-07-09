@@ -7,8 +7,16 @@ import model.database.HighScoreP;
 import model.database.POJO;
 import model.policy.Policy;
 import searchable.Solution;
-
+/**
+ * All the business Logic implemented begind a FACADE.
+ * @author Isan Rivkin
+ *
+ */
 public interface FModel {
+	/**
+	 * load a level from xml,txt,obj,ser
+	 * @param path
+	 */
 	public void loadLevel(String path); 
 	public void saveCurrentLevel(String path);
 	public int getPlayerSteps(int playerNum);
