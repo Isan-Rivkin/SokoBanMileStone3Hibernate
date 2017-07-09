@@ -7,7 +7,4 @@ public  interface FController extends Observer{
 
 	public void start();
 	public void stop();
-	
-	
-	
 }

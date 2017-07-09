@@ -12,7 +12,7 @@ public class Protocol
 	 * server config*****
 	 *************************/
 	public final static String serverIP = "127.0.0.1";
-	public final static int serverPort = 7777;
+	public final static int serverPort = 9876;
 	/************************
 	 * networkd protocol*****
 	 *************************/
